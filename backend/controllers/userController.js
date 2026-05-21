@@ -82,9 +82,43 @@ export const getUserProfile = async (req, res) => {
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
+      role: user.role,
       healthProfile: user.healthProfile, // This object contains allergies, illnesses, AND prohibitedFoods
     });
   } else {
     res.status(404).json({ message: "User not found" });
   }
+};
+
+// @des..... Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+export const updateUserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+
+        if (user) {
+            // Update the fields if they were provided in the request body
+            user.fullName = req.body.fullName || user.fullName;
+            
+            if (req.body.healthProfile) {
+                user.healthProfile = req.body.healthProfile;
+            }
+
+            // Save the updated user to MongoDB
+            const updatedUser = await user.save();
+
+            res.json({
+                _id: updatedUser._id,
+                fullName: updatedUser.fullName,
+                email: updatedUser.email,
+                role: updatedUser.role,
+                healthProfile: updatedUser.healthProfile
+            });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };

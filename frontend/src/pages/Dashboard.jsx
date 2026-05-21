@@ -70,6 +70,7 @@ const Dashboard = () => {
   if (loading) return <LoadingScreen />;
 
   const hp = profile?.healthProfile;
+  console.log("Current user profile data: ", profile)
 
   return (
     <>
@@ -124,6 +125,12 @@ const Dashboard = () => {
               <h2 className="text-lg font-semibold text-white">
                 Your Health Profile
               </h2>
+              <button
+                onClick={() => navigate("/edit-profile")}
+                className="text-sm font-medium text-blue-400 border border-green-400 px-2 py-1 ml-10 rounded-lg blue hover:text-blue-300"
+              >
+                Edit Profile ⚙️
+              </button>
             </div>
 
             <div className="space-y-5 divide-y divide-slate-800/70">
@@ -154,6 +161,16 @@ const Dashboard = () => {
             >
               🕒 View Scan History
             </button>
+
+            {/* --- ADMIN ONLY SECTION --- */}
+            {profile?.role === "admin" && (
+              <button
+                onClick={() => navigate("/add-dish")}
+                className="w-full flex items-center justify-center gap-3 py-4 rounded-xl font-semibold text-base text-white bg-purple-600 hover:bg-purple-500 transition-colors duration-200 anim-slide-up anim-delay-3 border border-purple-500"
+              >
+                ⚙️ Admin: Manage Food Database
+              </button>
+            )}
           </div>
         </div>
       </div>

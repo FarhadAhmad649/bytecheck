@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, authUser, getUserProfile } from "../controllers/userController.js";
+import { registerUser, authUser, getUserProfile, updateUserProfile } from "../controllers/userController.js";
 import { protect } from '../middleware/authMiddleware.js'
 
 const router = express.Router();
@@ -8,6 +8,9 @@ const router = express.Router();
 router.post("/register", registerUser);
 router.post('/login', authUser); 
 
-router.get("/profile", protect, getUserProfile);
+// The router.route allows chaining GET and PUT on the same '/profile' endpoint
+router.route('/profile')
+      .get(protect, getUserProfile)
+      .put(protect, updateUserProfile);
 
 export default router;

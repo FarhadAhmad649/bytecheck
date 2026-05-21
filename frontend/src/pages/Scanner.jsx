@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-
 const getStatusStyles = (status) => {
   if (status === "Safe")
     return {
@@ -25,19 +24,21 @@ const getStatusStyles = (status) => {
 };
 
 // ─── Main Scanner ─────────────────────────────────────────────────────────────
-
 const Scanner = () => {
   const [scanMode, setScanMode] = useState("image");
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [manualText, setManualText] = useState("");
+  const [dishName, setDishName] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
 
+  const cameraInputRef = useRef(null);
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
-  // ── Image Handlers ──
+  // ── Handlers ──
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -64,10 +65,8 @@ const Scanner = () => {
     }
   };
 
-  // ── Text Handlers ──
   const handleTextScan = async () => {
-    if (!manualText.trim())
-      return setError("Please type some ingredients to check.");
+    if (!manualText.trim()) return setError("Please type ingredients.");
     setLoading(true);
     setError("");
     try {
@@ -82,175 +81,180 @@ const Scanner = () => {
     }
   };
 
+  const handleDishScan = async () => {
+    if (!dishName.trim()) return setError("Please type a dish name.");
+    setLoading(true);
+    setError("");
+    try {
+      const response = await API.post("/scans/analyze-dish", {
+        dishName: dishName.trim(),
+      });
+      setResult(response.data);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to analyze the dish.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const switchMode = (mode) => {
     setScanMode(mode);
     setResult(null);
     setError("");
+    setPreviewUrl(null);
+    setSelectedImage(null);
   };
 
   const resultStyles = result ? getStatusStyles(result.status) : null;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans p-4">
+      <div className="max-w-2xl mx-auto py-12">
         {/* ── Header ── */}
-        <div className="flex items-start justify-between mb-10 anim-fade-up">
+        <div className="flex items-start justify-between mb-10">
           <div>
-            <p className="text-xs font-semibold tracking-widest uppercase text-emerald-500 mb-1">
-              Label Scanner
-            </p>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+            <h1 className="text-3xl font-bold text-white">
               Food Label Checker
             </h1>
             <p className="text-slate-500 text-sm mt-1">
-              Scan or type ingredients to check if they're safe for you.
+              Scan or search to check food safety.
             </p>
           </div>
           <button
             onClick={() => navigate("/dashboard")}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors duration-200"
+            className="px-4 py-2 rounded-xl text-sm bg-slate-800 border border-slate-700"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
+            Back
+          </button>
+        </div>
+
+        {/* ── Mode Selection Tabs ── */}
+        <div className="flex bg-slate-900 border border-slate-800 p-1 rounded-2xl mb-8">
+          {["image", "text", "dish"].map((mode) => (
+            <button
+              key={mode}
+              onClick={() => switchMode(mode)}
+              className={`flex-1 py-3 text-sm font-semibold rounded-xl capitalize transition-all ${
+                scanMode === mode
+                  ? "bg-slate-800 text-white shadow-lg"
+                  : "text-slate-500 hover:text-slate-300"
+              }`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Dashboard
-          </button>
+              {mode === "image"
+                ? "📷 Scan"
+                : mode === "text"
+                  ? "✍️ Text"
+                  : "🍲 Dish"}
+            </button>
+          ))}
         </div>
 
-        {/* ── Mode Toggle ── */}
-        <div className="flex gap-3 mb-6 anim-slide-up">
-          <button
-            onClick={() => switchMode("image")}
-            className={`flex-1 py-3 rounded-xl text-sm font-semibold transition-colors duration-200 border ${
-              scanMode === "image"
-                ? "bg-emerald-600 border-emerald-500 text-white"
-                : "bg-slate-800 border-slate-700 text-slate-400 hover:text-slate-200"
-            }`}
-          >
-            📷 Camera Scan
-          </button>
-          <button
-            onClick={() => switchMode("text")}
-            className={`flex-1 py-3 rounded-xl text-sm font-semibold transition-colors duration-200 border ${
-              scanMode === "text"
-                ? "bg-emerald-600 border-emerald-500 text-white"
-                : "bg-slate-800 border-slate-700 text-slate-400 hover:text-slate-200"
-            }`}
-          >
-            ✍️ Manual Text
-          </button>
-        </div>
-
-        {/* ── Input Area ── */}
-        <div className="rounded-2xl bg-slate-900/80 border-2 border-dashed border-slate-700 p-6 text-center mb-5 anim-slide-up">
+        {/* ── Dynamic Input Area ── */}
+        <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl mb-8">
           {scanMode === "image" ? (
-            <>
-              <label className="flex flex-col items-center justify-center gap-2 cursor-pointer group mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-slate-800 group-hover:bg-slate-700 border border-slate-700 flex items-center justify-center transition-colors duration-200">
-                  <span className="text-2xl">📁</span>
+            <div className="flex flex-col items-center">
+              {!previewUrl ? (
+                <div className="flex gap-4 w-full mb-6">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    onChange={handleImageChange}
+                    className="hidden"
+                    ref={cameraInputRef}
+                  />
+                  <button
+                    onClick={() => cameraInputRef.current.click()}
+                    className="flex-1 py-8 bg-blue-900/20 text-blue-300 rounded-xl border border-blue-800 flex flex-col items-center gap-2"
+                  >
+                    <span>📸 Camera</span>
+                  </button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                    ref={fileInputRef}
+                  />
+                  <button
+                    onClick={() => fileInputRef.current.click()}
+                    className="flex-1 py-8 bg-purple-900/20 text-purple-300 rounded-xl border border-purple-800 flex flex-col items-center gap-2"
+                  >
+                    <span>📁 Upload</span>
+                  </button>
                 </div>
-                <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors duration-200">
-                  Click to choose an image
-                </span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="hidden"
-                />
-              </label>
-
-              {previewUrl && (
-                <div className="mb-5">
+              ) : (
+                <div className="relative mb-6">
                   <img
                     src={previewUrl}
                     alt="Preview"
-                    className="max-w-full max-h-72 rounded-xl mx-auto border border-slate-700 object-contain"
+                    className="h-64 object-contain rounded-lg"
                   />
+                  <button
+                    onClick={() => {
+                      setPreviewUrl(null);
+                      setSelectedImage(null);
+                    }}
+                    className="absolute top-2 right-2 bg-red-500 p-2 rounded-full text-white"
+                  >
+                    ✕
+                  </button>
                 </div>
               )}
-
               <button
                 onClick={handleImageScan}
                 disabled={!selectedImage || loading}
-                className="w-full py-4 rounded-xl font-semibold text-base text-white bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed transition-colors duration-200"
+                className="w-full py-3 bg-blue-600 rounded-lg font-bold disabled:opacity-50"
               >
-                {loading ? "🤖 AI is analyzing image…" : "Analyze Image"}
+                {loading ? "Analyzing..." : "Analyze Label"}
+              </button>
+            </div>
+          ) : scanMode === "text" ? (
+            <>
+              <textarea
+                rows={5}
+                placeholder="Type ingredients..."
+                value={manualText}
+                onChange={(e) => setManualText(e.target.value)}
+                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 mb-4"
+              />
+              <button
+                onClick={handleTextScan}
+                className="w-full py-4 bg-emerald-600 rounded-xl font-semibold"
+              >
+                Check Text
               </button>
             </>
           ) : (
             <>
-              <textarea
-                rows={5}
-                placeholder="Type ingredients here (e.g., water, sugar, peanuts…)"
-                value={manualText}
-                onChange={(e) => setManualText(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 resize-none focus:outline-none focus:border-emerald-500 transition-colors duration-200 mb-4"
+              <input
+                type="text"
+                placeholder="Enter dish name..."
+                value={dishName}
+                onChange={(e) => setDishName(e.target.value)}
+                className="w-full px-4 py-3 mb-4 rounded-xl bg-slate-800 border border-slate-700"
               />
               <button
-                onClick={handleTextScan}
-                disabled={!manualText.trim() || loading}
-                className="w-full py-4 rounded-xl font-semibold text-base text-white bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed transition-colors duration-200"
+                onClick={handleDishScan}
+                className="w-full py-4 bg-blue-600 rounded-xl font-semibold"
               >
-                {loading ? "🔍 Checking ingredients…" : "Check Text"}
+                Check Dish
               </button>
             </>
           )}
         </div>
 
-        {/* ── Error ── */}
-        {error && (
-          <p className="text-center text-red-400 text-sm mb-5">{error}</p>
-        )}
+        {error && <p className="text-center text-red-400 mb-5">{error}</p>}
 
         {/* ── Result Card ── */}
         {result && (
           <div
-            className={`rounded-2xl bg-slate-900/80 border-2 ${resultStyles.border} p-6 anim-slide-up`}
+            className={`rounded-2xl border-2 ${resultStyles.border} p-6 bg-slate-900`}
           >
-            <div className="flex items-center justify-between mb-4">
-              <span
-                className={`text-xs font-semibold px-3 py-1 rounded-full ${resultStyles.badge}`}
-              >
-                {result.status}
-              </span>
-              <span className="text-xs text-slate-500">Analysis Result</span>
-            </div>
-
-            <p className="text-sm text-slate-300 mb-4">
-              <span className="text-white font-semibold">Reason: </span>
-              {result.reason}
-            </p>
-
-            {result.flaggedIngredients?.length > 0 && (
-              <div>
-                <p className="text-sm text-white font-semibold mb-2">
-                  Flagged Ingredients:
-                </p>
-                <ul className="flex flex-col gap-1.5">
-                  {result.flaggedIngredients.map((ing, idx) => (
-                    <li
-                      key={idx}
-                      className="text-sm text-red-400 font-semibold capitalize flex items-center gap-2"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-400 inline-block" />
-                      {ing}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <h3 className={`text-xl font-bold mb-2 ${resultStyles.text}`}>
+              {result.status}
+            </h3>
+            <p className="text-slate-300">{result.reason}</p>
           </div>
         )}
       </div>
@@ -259,26 +263,3 @@ const Scanner = () => {
 };
 
 export default Scanner;
-
-/*
-  CSS — keyframes only (add to your global CSS or Scanner.css)
-  =============================================================
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .anim-fade-up {
-    animation: fadeUp 0.5s ease both;
-  }
-
-  .anim-slide-up {
-    animation: slideUp 0.45s ease both;
-  }
-*/

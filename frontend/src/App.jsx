@@ -11,6 +11,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import Scanner from "./pages/Scanner";
 import History from "./pages/History";
 import { ToastContainer } from "react-toastify";
+import AddDish from './pages/AddDish'
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -53,6 +55,21 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* 2. Add the AddDish as a Private Route */}
+        <Route
+          path="/add-dish"
+          element={
+            <PrivateRoute>
+              <AddDish />
+            </PrivateRoute>
+          }
+        />
+
+        {/* 2.  Add the EditProfile as a private route */}
+        <Route path="/edit-profile" element={<EditProfile />} />
+
+        
       </Routes>
     </AuthProvider>
   );

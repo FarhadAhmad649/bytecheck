@@ -1,7 +1,8 @@
 import express from 'express';
 import multer from 'multer';
-import { createScan, getUserScans, analyzeImage, getScanHistory, analyzeText } from "../controllers/scanController.js";
+import { createScan, getUserScans, analyzeImage, getScanHistory, analyzeText, addDishToDictionary, analyzeDish } from "../controllers/scanController.js";
 import { protect } from "../middleware/authMiddleware.js";
+import { admin } from '../middleware/adminMiddleware.js';
 
 const router = express.Router();
 
@@ -32,6 +33,10 @@ router.get('/history', protect, getScanHistory)
 
 // .... Manual text processing endpoint
 router.post('/analyze-text', protect, analyzeText);
+
+// Menu Dish Dictionary routes
+router.post('/add-dish', protect, admin, addDishToDictionary);
+router.post('/analyze-dish', protect, analyzeDish);
 
 
 export default router;
