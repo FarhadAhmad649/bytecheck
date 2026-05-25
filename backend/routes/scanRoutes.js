@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { createScan, getUserScans, analyzeImage, getScanHistory, analyzeText, addDishToDictionary, analyzeDish } from "../controllers/scanController.js";
+import { createScan, getUserScans, analyzeImage, getScanHistory, analyzeText, addDishToDictionary, analyzeDish, getSafeAlternatives } from "../controllers/scanController.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { admin } from '../middleware/adminMiddleware.js';
 
@@ -15,7 +15,12 @@ const storage = multer.diskStorage({
         cb(null, `${Date.now()}-${file.originalname}`);
     }
 });
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // Set limit to 5MB
+  },
+});
 
 // ... Both routes are protected.
 // A POST request saves a scan, a GET request fetches the history.
@@ -38,5 +43,6 @@ router.post('/analyze-text', protect, analyzeText);
 router.post('/add-dish', protect, admin, addDishToDictionary);
 router.post('/analyze-dish', protect, analyzeDish);
 
+router.post("/alternatives", protect, getSafeAlternatives);
 
 export default router;

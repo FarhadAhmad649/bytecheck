@@ -45,6 +45,9 @@ export const registerUser = async (req, res) => {
 //...........Login user
 export const authUser = async (req, res) => {
   try {
+
+    console.log("🚨 LOGIN ROUTE HIT! HERE IS THE DATA:", req.body);
+    
     const { email, password } = req.body;
 
     // 1. Find user by email

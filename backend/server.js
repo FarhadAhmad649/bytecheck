@@ -1,12 +1,14 @@
+// MUST BE THE VERY FIRST LINE - This loads .env before anything else!
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
+//import dotenv from "dotenv";
 import connectDB from "./config/dbConfig.js";
-import userRoutes from './routes/userRoutes.js'
-import scanRoutes from './routes/scanRoutes.js'
+import userRoutes from "./routes/userRoutes.js";
+import scanRoutes from "./routes/scanRoutes.js";
 
 // Load environment variables
-dotenv.config();
+//dotenv.config();
 
 // Initialize the Express app
 const app = express();
@@ -19,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
-app.use('/api/users', userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/scans", scanRoutes);
 
 // Test Route

@@ -22,6 +22,10 @@ def extract_text_from_image(image_path):
         # 4. Extract text using Tesseract
         extracted_text = pytesseract.image_to_string(thresh)
 
+        # 5. CRITICAL FIX: Use PSM 6 (Assume a single uniform block of text)
+        custom_config = r'--oem 3 --psm 6'
+        text = pytesseract.image_to_string(thresh, config=custom_config)
+
         # 5. Print the result as a JSON string so Node.js can easily parse it
         result = {
             "success": True, 
