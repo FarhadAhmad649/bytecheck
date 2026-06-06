@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { createScan, getUserScans, analyzeImage, getScanHistory, analyzeText, addDishToDictionary, analyzeDish, getSafeAlternatives } from "../controllers/scanController.js";
+import { createScan, getUserScans, analyzeImage, getScanHistory, analyzeText, addDishToDictionary, analyzeDish, getSafeAlternatives, getAllDishes, updateDish, deleteDish } from "../controllers/scanController.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { admin } from '../middleware/adminMiddleware.js';
 
@@ -39,10 +39,22 @@ router.get('/history', protect, getScanHistory)
 // .... Manual text processing endpoint
 router.post('/analyze-text', protect, analyzeText);
 
-// Menu Dish Dictionary routes
+// .... Menu Dish Dictionary routes
 router.post('/add-dish', protect, admin, addDishToDictionary);
+
+// .... Analyzing the dish route
 router.post('/analyze-dish', protect, analyzeDish);
 
+// .... Get safe alternative foods list
 router.post("/alternatives", protect, getSafeAlternatives);
+
+// ... Get all the dishes list (Admin only)
+router.get("/dishes", protect, admin, getAllDishes);
+
+// ... Update the dish using PUT
+router.put("/dish/:id", protect, admin, updateDish);
+
+// ... Delete dish from db using DELETE
+router.delete("/dish/:id", protect, admin, deleteDish);
 
 export default router;

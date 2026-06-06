@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, authUser, getUserProfile, updateUserProfile } from "../controllers/userController.js";
+import { registerUser, authUser, getUserProfile, updateUserProfile, addFamilyMember, updateFamilyProfile, deleteFamilyProfile } from "../controllers/userController.js";
 import { protect } from '../middleware/authMiddleware.js'
 
 const router = express.Router();
@@ -12,5 +12,12 @@ router.post('/login', authUser);
 router.route('/profile')
       .get(protect, getUserProfile)
       .put(protect, updateUserProfile);
+
+// To add a new family member
+router.post("/family", protect, addFamilyMember);
+
+// To update the family profiles
+router.put("/family/:id", protect, updateFamilyProfile);
+router.delete("/family/:id", protect, deleteFamilyProfile);
 
 export default router;

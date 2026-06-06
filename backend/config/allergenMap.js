@@ -1,4 +1,7 @@
+// backend/config/allergenMap.js
+
 export const allergenMap = {
+  // 1. DAIRY (Upgraded with Pakistani terms)
   milk: [
     "milk",
     "casein",
@@ -19,7 +22,14 @@ export const allergenMap = {
     "custard",
     "half-and-half",
     "dairy",
+    "khoya",
+    "mawa",
+    "malai",
+    "lassi",
+    "rabri",
   ],
+
+  // 2. EGGS
   eggs: [
     "egg",
     "eggs",
@@ -33,6 +43,8 @@ export const allergenMap = {
     "globulin",
     "vitellin",
   ],
+
+  // 3. WHEAT / GLUTEN (Upgraded with local flour names)
   wheat: [
     "wheat",
     "gluten",
@@ -48,7 +60,14 @@ export const allergenMap = {
     "einkorn",
     "emmer",
     "kamut",
+    "maida",
+    "sooji",
+    "suji",
+    "atta",
+    "daliya",
   ],
+
+  // 4. SOY
   soy: [
     "soy",
     "soya",
@@ -64,6 +83,8 @@ export const allergenMap = {
     "textured vegetable protein",
     "tvp",
   ],
+
+  // 5. PEANUTS (Added local name)
   peanuts: [
     "peanut",
     "peanuts",
@@ -73,26 +94,36 @@ export const allergenMap = {
     "groundnuts",
     "valencias",
     "arachis oil",
+    "moongphali",
   ],
+
+  // 6. TREE NUTS (Added local names)
   treenuts: [
     "almond",
     "almonds",
+    "badam",
     "walnut",
     "walnuts",
+    "akhrot",
     "pecan",
     "pecans",
     "cashew",
     "cashews",
+    "kaju",
     "pistachio",
     "pistachios",
+    "pista",
     "hazelnut",
     "hazelnuts",
     "macadamia",
     "pine nut",
+    "chilgoza",
     "brazil nut",
     "marzipan",
     "praline",
   ],
+
+  // 7. FISH
   fish: [
     "fish",
     "anchovies",
@@ -110,11 +141,63 @@ export const allergenMap = {
     "pike",
     "pollock",
     "salmon",
-    "scrote",
     "snapper",
     "swordfish",
     "tilapia",
     "trout",
     "tuna",
+    "machli",
   ],
+
+  // 8. CRUSTACEANS & MOLLUSCS (Shellfish)
+  shellfish: [
+    "shellfish",
+    "crustacean",
+    "mollusc",
+    "shrimp",
+    "prawn",
+    "jhinga",
+    "crab",
+    "lobster",
+    "crawfish",
+    "krill",
+    "oyster",
+    "scallop",
+    "squid",
+    "calamari",
+    "octopus",
+    "clam",
+    "mussel",
+  ],
+
+  // 9. SESAME (Highly common in bakery items)
+  sesame: ["sesame", "tahini", "til", "benne", "gomasio", "halva"],
+
+  // 10. MUSTARD
+  mustard: ["mustard", "sarson", "rai", "mustard seed", "mustard powder"],
+
+  // 11. CELERY
+  celery: ["celery", "celeriac", "celery salt", "celery seed"],
+
+  // 12. SULFITES (Chemical preservatives in dried fruits and drinks)
+  sulfites: [
+    "sulfite",
+    "sulphite",
+    "sulfur dioxide",
+    "potassium bisulfite",
+    "sodium sulfite",
+    "metabisulfite",
+    "e220",
+    "e221",
+    "e222",
+    "e223",
+    "e224",
+    "e225",
+    "e226",
+    "e227",
+    "e228",
+  ],
+
+  // 13. LUPIN (A legume increasingly used as a flour alternative)
+  lupin: ["lupin", "lupine", "lupin flour", "lupin seed"],
 };

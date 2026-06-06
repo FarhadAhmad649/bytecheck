@@ -1,17 +1,32 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+
+// 1. Create a Sub-Schema for individual family members
+const profileSchema = new mongoose.Schema({
+  name: { type: String, required: true }, // e.g., "Dad", "Daughter", "Me"
+  isPrimary: { type: Boolean, default: false }, // True for the account owner
+
+  // The exact same Medical Ontology arrays!
+  allergies: [{ type: String, lowercase: true, trim: true }],
+  prohibitedFoods: [{ type: String, lowercase: true, trim: true }],
+  illnesses: [{ type: String, lowercase: true, trim: true }],
+
+});
 
 const userSchema = new mongoose.Schema(
   {
     fullName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, enum: ["user", "admin"], default: "user" },
-    healthProfile: {
-      allergies: [{ type: String }], // e.g., ["peanuts", "shellfish"]
-      illnesses: [{ type: String }], // e.g., ["diabetes", "kidney disease"]
-      prohibitedFoods: [{ type: String }], // e.g., ["sugar", "salt", "potassium"]
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
+    password: { type: String, required: true },
+    role: { type: String, default: "user" },
+
+    // 🔴 NEW: The user now has an array of family profiles!
+    familyProfiles: [profileSchema],
   },
   { timestamps: true },
 );

@@ -1,0 +1,3258 @@
+[
+  {
+    "dishName": "Chicken Biryani",
+    "aliases": ["Murgh Biryani"],
+    "ingredients": [
+      "chicken",
+      "basmati rice",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "yogurt",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Beef Biryani",
+    "aliases": ["Kalyani Biryani"],
+    "ingredients": [
+      "beef",
+      "basmati rice",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "yogurt",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Sindhi Biryani",
+    "aliases": ["Spicy Potato Biryani"],
+    "ingredients": [
+      "chicken",
+      "basmati rice",
+      "potato",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "yogurt",
+      "dried plums",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Memoni Biryani",
+    "aliases": ["Spicy Memoni Biryani"],
+    "ingredients": [
+      "lamb",
+      "basmati rice",
+      "potato",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "yogurt",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Chicken Karahi",
+    "aliases": ["Murgh Karahi", "Kadai Chicken"],
+    "ingredients": [
+      "chicken",
+      "cooking oil",
+      "tomato",
+      "green chili",
+      "ginger",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Beef Karahi",
+    "aliases": ["Gosht Karahi"],
+    "ingredients": [
+      "beef",
+      "cooking oil",
+      "tomato",
+      "green chili",
+      "ginger",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Mutton Karahi",
+    "aliases": ["Dumba Karahi"],
+    "ingredients": [
+      "mutton",
+      "cooking oil",
+      "tomato",
+      "green chili",
+      "ginger",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Nihari",
+    "aliases": ["Beef Nihari", "Bong Nihari"],
+    "ingredients": [
+      "beef shank",
+      "beef marrow",
+      "wheat flour",
+      "ghee",
+      "onion",
+      "ginger",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension", "Obesity"],
+    "dietaryFlags": ["high oil", "high calorie", "high sodium"]
+  },
+  {
+    "dishName": "Haleem",
+    "aliases": ["Daleem", "Beef Haleem"],
+    "ingredients": [
+      "beef",
+      "wheat",
+      "barley",
+      "chana daal",
+      "masoor daal",
+      "cooking oil",
+      "onion",
+      "spices"
+    ],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Celiac Disease", "Heart Disease"],
+    "dietaryFlags": ["high oil", "high calorie"]
+  },
+  {
+    "dishName": "Paya",
+    "aliases": ["Mutton Paya", "Trotters"],
+    "ingredients": [
+      "goat trotters",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "ginger",
+      "yogurt",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high oil", "high fat"]
+  },
+  {
+    "dishName": "Siri Paya",
+    "aliases": ["Beef Siri Paya"],
+    "ingredients": [
+      "cow trotters",
+      "cow head meat",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high oil", "high fat"]
+  },
+  {
+    "dishName": "Chapli Kebab",
+    "aliases": ["Peshawari Kebab"],
+    "ingredients": [
+      "minced beef",
+      "wheat flour",
+      "egg",
+      "tomato",
+      "onion",
+      "coriander seeds",
+      "cooking oil",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "egg"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension", "Obesity"],
+    "dietaryFlags": ["deep fried", "high oil", "high sodium"]
+  },
+  {
+    "dishName": "Seekh Kebab",
+    "aliases": ["BBQ Kebab", "Beef Seekh Kebab"],
+    "ingredients": [
+      "minced beef",
+      "onion",
+      "green chili",
+      "garlic",
+      "ginger",
+      "coriander",
+      "spices",
+      "cooking oil"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium", "high protein"]
+  },
+  {
+    "dishName": "Shami Kebab",
+    "aliases": ["Lentil Beef Patty", "Shami Tikki"],
+    "ingredients": [
+      "beef",
+      "chana daal",
+      "egg",
+      "onion",
+      "garlic",
+      "ginger",
+      "spices",
+      "cooking oil"
+    ],
+    "containsAllergies": ["egg"],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil", "high protein"]
+  },
+  {
+    "dishName": "Reshmi Kebab",
+    "aliases": ["Malai Kebab", "Silky Kebab"],
+    "ingredients": [
+      "minced chicken",
+      "cream",
+      "cheese",
+      "egg",
+      "almonds",
+      "green chili",
+      "spices",
+      "cooking oil"
+    ],
+    "containsAllergies": ["dairy", "egg", "tree nuts"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie"]
+  },
+  {
+    "dishName": "Malai Boti",
+    "aliases": ["Chicken Malai Boti"],
+    "ingredients": [
+      "chicken breast",
+      "cream",
+      "yogurt",
+      "green chili",
+      "ginger",
+      "garlic",
+      "spices",
+      "cooking oil"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie"]
+  },
+  {
+    "dishName": "Chicken Tikka",
+    "aliases": ["BBQ Tikka", "Murgh Tikka"],
+    "ingredients": [
+      "chicken quarters",
+      "yogurt",
+      "lemon juice",
+      "garlic",
+      "ginger",
+      "spices",
+      "cooking oil"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high protein", "high sodium"]
+  },
+  {
+    "dishName": "Tikka Boti",
+    "aliases": ["Beef Tikka Boti"],
+    "ingredients": [
+      "beef cubes",
+      "raw papaya",
+      "yogurt",
+      "garlic",
+      "ginger",
+      "spices",
+      "cooking oil"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high protein", "high sodium"]
+  },
+  {
+    "dishName": "Chicken Handi",
+    "aliases": ["Murgh Handi", "Boneless Handi"],
+    "ingredients": [
+      "boneless chicken",
+      "cooking oil",
+      "butter",
+      "cream",
+      "tomato",
+      "onion",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie"]
+  },
+  {
+    "dishName": "Mutton Handi",
+    "aliases": ["Gosht Handi"],
+    "ingredients": [
+      "boneless mutton",
+      "cooking oil",
+      "cream",
+      "tomato",
+      "onion",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie"]
+  },
+  {
+    "dishName": "White Karahi",
+    "aliases": ["Chicken White Karahi"],
+    "ingredients": [
+      "chicken",
+      "cooking oil",
+      "cream",
+      "yogurt",
+      "green chili",
+      "ginger",
+      "garlic",
+      "white pepper",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie"]
+  },
+  {
+    "dishName": "Korma",
+    "aliases": ["Mutton Korma", "Qorma"],
+    "ingredients": [
+      "mutton",
+      "cooking oil",
+      "onion",
+      "yogurt",
+      "garlic",
+      "ginger",
+      "cloves",
+      "cardamom",
+      "kewra water",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Chicken Qorma",
+    "aliases": ["Chicken Korma", "Danedar Qorma"],
+    "ingredients": [
+      "chicken",
+      "cooking oil",
+      "onion",
+      "yogurt",
+      "garlic",
+      "ginger",
+      "spices",
+      "kewra water"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Beef Qorma",
+    "aliases": ["Beef Korma"],
+    "ingredients": [
+      "beef",
+      "cooking oil",
+      "onion",
+      "yogurt",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Murgh Cholay",
+    "aliases": ["Chicken and Chickpeas"],
+    "ingredients": [
+      "chicken",
+      "chickpeas",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Chana Masala",
+    "aliases": ["Cholay", "Lahori Chana"],
+    "ingredients": [
+      "chickpeas",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices",
+      "baking soda"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil", "vegetarian"]
+  },
+  {
+    "dishName": "Aloo Gosht",
+    "aliases": ["Meat and Potato Curry"],
+    "ingredients": [
+      "mutton",
+      "potato",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Palak Gosht",
+    "aliases": ["Spinach Mutton", "Saag Gosht"],
+    "ingredients": [
+      "mutton",
+      "spinach",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices",
+      "cream"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil"]
+  },
+  {
+    "dishName": "Saag",
+    "aliases": ["Mustard Greens Curry"],
+    "ingredients": [
+      "mustard greens",
+      "spinach",
+      "butter",
+      "corn flour",
+      "garlic",
+      "ginger",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high fat", "vegetarian"]
+  },
+  {
+    "dishName": "Sarson Ka Saag",
+    "aliases": ["Punjabi Saag"],
+    "ingredients": [
+      "mustard greens",
+      "spinach",
+      "ghee",
+      "corn flour",
+      "garlic",
+      "ginger",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high fat", "vegetarian"]
+  },
+  {
+    "dishName": "Daal Chawal",
+    "aliases": ["Lentils and Rice"],
+    "ingredients": [
+      "basmati rice",
+      "masoor daal",
+      "moong daal",
+      "cooking oil",
+      "garlic",
+      "cumin",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high carb", "vegetarian"]
+  },
+  {
+    "dishName": "Daal Mash",
+    "aliases": ["White Lentils", "Urad Daal"],
+    "ingredients": [
+      "urad lentils",
+      "ghee",
+      "onion",
+      "garlic",
+      "ginger",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil", "vegetarian"]
+  },
+  {
+    "dishName": "Daal Moong",
+    "aliases": ["Yellow Lentils"],
+    "ingredients": [
+      "moong lentils",
+      "cooking oil",
+      "garlic",
+      "cumin",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": [],
+    "dietaryFlags": ["vegetarian"]
+  },
+  {
+    "dishName": "Daal Chana",
+    "aliases": ["Split Bengal Gram Curry"],
+    "ingredients": [
+      "chana daal",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil", "vegetarian"]
+  },
+  {
+    "dishName": "Mix Daal",
+    "aliases": ["Panchmel Dal", "Mixed Lentils"],
+    "ingredients": [
+      "masoor daal",
+      "moong daal",
+      "chana daal",
+      "urad daal",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": [],
+    "dietaryFlags": ["vegetarian"]
+  },
+  {
+    "dishName": "Keema",
+    "aliases": ["Minced Meat Curry", "Qeema"],
+    "ingredients": [
+      "minced beef",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil"]
+  },
+  {
+    "dishName": "Aloo Keema",
+    "aliases": ["Potato and Minced Meat"],
+    "ingredients": [
+      "minced beef",
+      "potato",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Diabetes"],
+    "dietaryFlags": ["high oil", "high carb"]
+  },
+  {
+    "dishName": "Matar Keema",
+    "aliases": ["Peas and Minced Meat"],
+    "ingredients": [
+      "minced beef",
+      "peas",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil"]
+  },
+  {
+    "dishName": "Bhindi Masala",
+    "aliases": ["Okra Curry"],
+    "ingredients": [
+      "okra",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "cumin",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil", "vegetarian"]
+  },
+  {
+    "dishName": "Baingan Bharta",
+    "aliases": ["Smoked Eggplant Curry"],
+    "ingredients": [
+      "eggplant",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil", "vegetarian"]
+  },
+  {
+    "dishName": "Aloo Palak",
+    "aliases": ["Potato and Spinach"],
+    "ingredients": [
+      "potato",
+      "spinach",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil", "vegetarian"]
+  },
+  {
+    "dishName": "Aloo Methi",
+    "aliases": ["Potato and Fenugreek"],
+    "ingredients": [
+      "potato",
+      "fenugreek leaves",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high oil", "vegetarian"]
+  },
+  {
+    "dishName": "Chicken Pulao",
+    "aliases": ["Murgh Pulao"],
+    "ingredients": [
+      "chicken",
+      "basmati rice",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "ginger",
+      "fennel seeds",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Beef Pulao",
+    "aliases": ["Degi Beef Pulao"],
+    "ingredients": [
+      "beef",
+      "basmati rice",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "ginger",
+      "fennel seeds",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Mutton Pulao",
+    "aliases": ["Gosht Pulao"],
+    "ingredients": [
+      "mutton",
+      "basmati rice",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "ginger",
+      "fennel seeds",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Yakhni Pulao",
+    "aliases": ["Broth Pulao"],
+    "ingredients": [
+      "mutton",
+      "basmati rice",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "ginger",
+      "fennel seeds",
+      "coriander seeds",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Kabuli Pulao",
+    "aliases": ["Afghani Pulao"],
+    "ingredients": [
+      "lamb",
+      "basmati rice",
+      "carrots",
+      "raisins",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Diabetes"],
+    "dietaryFlags": ["high oil", "high sugar"]
+  },
+  {
+    "dishName": "Zarda",
+    "aliases": ["Meethe Chawal", "Sweet Rice"],
+    "ingredients": [
+      "basmati rice",
+      "sugar",
+      "ghee",
+      "food coloring",
+      "almonds",
+      "pistachios",
+      "cardamom",
+      "raisins"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high calorie", "high carb"]
+  },
+  {
+    "dishName": "Kheer",
+    "aliases": ["Chawal Ki Kheer", "Rice Pudding"],
+    "ingredients": [
+      "milk",
+      "rice",
+      "sugar",
+      "almonds",
+      "pistachios",
+      "cardamom"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar", "high carb"]
+  },
+  {
+    "dishName": "Firni",
+    "aliases": ["Phirni"],
+    "ingredients": [
+      "milk",
+      "ground rice",
+      "sugar",
+      "almonds",
+      "pistachios",
+      "cardamom",
+      "kewra water"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar", "high carb"]
+  },
+  {
+    "dishName": "Gajar Ka Halwa",
+    "aliases": ["Carrot Halwa", "Gajrela"],
+    "ingredients": [
+      "carrots",
+      "milk",
+      "sugar",
+      "ghee",
+      "almonds",
+      "pistachios",
+      "cardamom",
+      "khoya"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Heart Disease", "Obesity"],
+    "dietaryFlags": ["high sugar", "high calorie", "high oil"]
+  },
+  {
+    "dishName": "Suji Halwa",
+    "aliases": ["Semolina Pudding"],
+    "ingredients": [
+      "semolina",
+      "sugar",
+      "ghee",
+      "water",
+      "almonds",
+      "cardamom"
+    ],
+    "containsAllergies": ["wheat", "dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Heart Disease"],
+    "dietaryFlags": ["high sugar", "high oil", "high carb"]
+  },
+  {
+    "dishName": "Jalebi",
+    "aliases": ["Zulbia", "Sweet Crisps"],
+    "ingredients": [
+      "wheat flour",
+      "corn flour",
+      "yogurt",
+      "cooking oil",
+      "sugar",
+      "saffron",
+      "food coloring"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high sugar", "high carb"]
+  },
+  {
+    "dishName": "Gulab Jamun",
+    "aliases": ["Sweet Milk Dumplings"],
+    "ingredients": [
+      "milk powder",
+      "wheat flour",
+      "ghee",
+      "cooking oil",
+      "sugar",
+      "cardamom",
+      "rose water"
+    ],
+    "containsAllergies": ["dairy", "wheat"],
+    "unsuitableForIllnesses": ["Diabetes", "Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Ras Malai",
+    "aliases": ["Rossomalai"],
+    "ingredients": [
+      "milk",
+      "vinegar",
+      "sugar",
+      "cardamom",
+      "almonds",
+      "pistachios",
+      "saffron"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar"]
+  },
+  {
+    "dishName": "Barfi",
+    "aliases": ["Burfi", "Milk Fudge"],
+    "ingredients": [
+      "milk powder",
+      "sugar",
+      "ghee",
+      "cardamom",
+      "pistachios",
+      "water"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Laddu",
+    "aliases": ["Motichoor Ladoo"],
+    "ingredients": [
+      "gram flour",
+      "sugar",
+      "ghee",
+      "water",
+      "cardamom",
+      "food coloring"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Heart Disease"],
+    "dietaryFlags": ["deep fried", "high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Peda",
+    "aliases": ["Dharwad Peda"],
+    "ingredients": ["khoya", "milk", "sugar", "cardamom", "ghee"],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Rabri",
+    "aliases": ["Rabdi"],
+    "ingredients": ["milk", "sugar", "cardamom", "almonds", "pistachios"],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Kulfi",
+    "aliases": ["Desi Ice Cream", "Matka Kulfi"],
+    "ingredients": [
+      "milk",
+      "sugar",
+      "khoya",
+      "cardamom",
+      "pistachios",
+      "almonds"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Ice Cream",
+    "aliases": ["Vanilla Ice Cream"],
+    "ingredients": ["milk", "cream", "sugar", "vanilla extract", "egg yolk"],
+    "containsAllergies": ["dairy", "egg"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high fat"]
+  },
+  {
+    "dishName": "Falooda",
+    "aliases": ["Rabri Falooda"],
+    "ingredients": [
+      "milk",
+      "rose syrup",
+      "vermicelli",
+      "basil seeds",
+      "ice cream",
+      "sugar",
+      "almonds"
+    ],
+    "containsAllergies": ["dairy", "wheat", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high carb"]
+  },
+  {
+    "dishName": "Doodh Dulari",
+    "aliases": ["Sweet Milk Dessert"],
+    "ingredients": [
+      "milk",
+      "sugar",
+      "colored vermicelli",
+      "jelly",
+      "cham cham",
+      "cream"
+    ],
+    "containsAllergies": ["dairy", "wheat"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Lassi",
+    "aliases": ["Sweet Lassi", "Yogurt Drink"],
+    "ingredients": ["yogurt", "milk", "sugar", "ice", "water"],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar"]
+  },
+  {
+    "dishName": "Mango Lassi",
+    "aliases": ["Sweet Mango Yogurt Drink"],
+    "ingredients": ["mango", "yogurt", "milk", "sugar", "ice"],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar"]
+  },
+  {
+    "dishName": "Doodh Soda",
+    "aliases": ["Milk Soda", "Pakistani Cream Soda"],
+    "ingredients": ["milk", "lemon lime soda", "ice", "sugar"],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "carbonated"]
+  },
+  {
+    "dishName": "Kashmiri Chai",
+    "aliases": ["Noon Chai", "Pink Tea"],
+    "ingredients": [
+      "green tea leaves",
+      "milk",
+      "baking soda",
+      "salt",
+      "sugar",
+      "almonds",
+      "pistachios"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Hypertension"],
+    "dietaryFlags": ["high sugar", "high sodium"]
+  },
+  {
+    "dishName": "Doodh Patti",
+    "aliases": ["Desi Chai", "Milk Tea"],
+    "ingredients": ["milk", "black tea leaves", "sugar", "water", "cardamom"],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar"]
+  },
+  {
+    "dishName": "Samosa",
+    "aliases": ["Vegetable Samosa"],
+    "ingredients": [
+      "wheat flour",
+      "potato",
+      "peas",
+      "cooking oil",
+      "cumin",
+      "coriander seeds",
+      "salt",
+      "green chili"
+    ],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Diabetes"],
+    "dietaryFlags": ["deep fried", "high oil", "high carb"]
+  },
+  {
+    "dishName": "Aloo Samosa",
+    "aliases": ["Potato Samosa"],
+    "ingredients": [
+      "wheat flour",
+      "potato",
+      "peas",
+      "cooking oil",
+      "cumin",
+      "coriander seeds",
+      "salt",
+      "green chili"
+    ],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Diabetes"],
+    "dietaryFlags": ["deep fried", "high oil", "high carb"]
+  },
+  {
+    "dishName": "Keema Samosa",
+    "aliases": ["Meat Samosa", "Beef Samosa"],
+    "ingredients": [
+      "wheat flour",
+      "minced beef",
+      "onion",
+      "cooking oil",
+      "cumin",
+      "coriander seeds",
+      "salt",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high oil"]
+  },
+  {
+    "dishName": "Pakora",
+    "aliases": ["Mix Sabzi Pakora", "Fritters"],
+    "ingredients": [
+      "gram flour",
+      "potato",
+      "onion",
+      "spinach",
+      "cooking oil",
+      "coriander seeds",
+      "cumin",
+      "salt",
+      "chili powder"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high oil"]
+  },
+  {
+    "dishName": "Onion Pakora",
+    "aliases": ["Pyaz Pakora", "Bhajiya"],
+    "ingredients": [
+      "gram flour",
+      "onion",
+      "cooking oil",
+      "coriander seeds",
+      "cumin",
+      "salt",
+      "chili powder"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high oil"]
+  },
+  {
+    "dishName": "Chicken Pakora",
+    "aliases": ["Murgh Pakora"],
+    "ingredients": [
+      "chicken",
+      "gram flour",
+      "cooking oil",
+      "garlic",
+      "ginger",
+      "salt",
+      "chili powder",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high oil", "high protein"]
+  },
+  {
+    "dishName": "Dahi Bhallay",
+    "aliases": ["Dahi Vada", "Dahi Baray"],
+    "ingredients": [
+      "urad lentil flour",
+      "yogurt",
+      "potato",
+      "chickpeas",
+      "tamarind chutney",
+      "sugar",
+      "spices",
+      "wheat flour papri",
+      "cooking oil"
+    ],
+    "containsAllergies": ["dairy", "wheat"],
+    "unsuitableForIllnesses": ["Diabetes", "Hypertension"],
+    "dietaryFlags": ["high sugar", "deep fried components"]
+  },
+  {
+    "dishName": "Chaat",
+    "aliases": ["Mix Chaat"],
+    "ingredients": [
+      "chickpeas",
+      "potato",
+      "onion",
+      "tomato",
+      "yogurt",
+      "tamarind chutney",
+      "chaat masala",
+      "green chili"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium"]
+  },
+  {
+    "dishName": "Fruit Chaat",
+    "aliases": ["Spicy Fruit Salad"],
+    "ingredients": [
+      "apple",
+      "banana",
+      "guava",
+      "grapes",
+      "orange juice",
+      "chaat masala",
+      "sugar"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar"]
+  },
+  {
+    "dishName": "Gol Gappay",
+    "aliases": ["Pani Puri"],
+    "ingredients": [
+      "semolina",
+      "wheat flour",
+      "chickpeas",
+      "potato",
+      "tamarind",
+      "mint",
+      "coriander",
+      "sugar",
+      "spices"
+    ],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Hypertension", "Diabetes"],
+    "dietaryFlags": ["deep fried", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Papri Chaat",
+    "aliases": ["Chana Papri Chaat"],
+    "ingredients": [
+      "chickpeas",
+      "potato",
+      "yogurt",
+      "tamarind chutney",
+      "wheat flour papri",
+      "chaat masala",
+      "onion",
+      "tomato"
+    ],
+    "containsAllergies": ["dairy", "wheat"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium", "deep fried components"]
+  },
+  {
+    "dishName": "Bun Kebab",
+    "aliases": ["Anday Wala Burger", "Desi Burger"],
+    "ingredients": [
+      "burger bun",
+      "beef patty",
+      "egg",
+      "chana daal",
+      "onion",
+      "yogurt",
+      "mint",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "egg", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high carb"]
+  },
+  {
+    "dishName": "Anda Shami Burger",
+    "aliases": ["Egg Shami Burger"],
+    "ingredients": [
+      "burger bun",
+      "beef",
+      "chana daal",
+      "egg",
+      "onion",
+      "cooking oil",
+      "yogurt",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "egg", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high carb"]
+  },
+  {
+    "dishName": "Zinger Burger",
+    "aliases": ["Crispy Fried Chicken Burger"],
+    "ingredients": [
+      "burger bun",
+      "chicken breast",
+      "wheat flour",
+      "corn flour",
+      "egg",
+      "mayonnaise",
+      "lettuce",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high oil", "high carb"]
+  },
+  {
+    "dishName": "Paratha Roll",
+    "aliases": ["Chicken Roll", "Kabab Roll"],
+    "ingredients": [
+      "wheat flour",
+      "chicken",
+      "onion",
+      "cooking oil",
+      "yogurt",
+      "mint",
+      "mayonnaise",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high oil", "high fat", "high carb"]
+  },
+  {
+    "dishName": "Chicken Shawarma",
+    "aliases": ["Desi Shawarma", "Pita Wrap"],
+    "ingredients": [
+      "pita bread",
+      "chicken",
+      "cabbage",
+      "cucumber",
+      "carrot",
+      "mayonnaise",
+      "garlic sauce",
+      "chili sauce",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium"]
+  },
+  {
+    "dishName": "Beef Shawarma",
+    "aliases": ["Meat Shawarma Wrap"],
+    "ingredients": [
+      "pita bread",
+      "beef",
+      "cabbage",
+      "cucumber",
+      "mayonnaise",
+      "garlic sauce",
+      "tahini",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy", "sesame"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium"]
+  },
+  {
+    "dishName": "Club Sandwich",
+    "aliases": ["Chicken Club Sandwich"],
+    "ingredients": [
+      "bread",
+      "chicken",
+      "egg",
+      "mayonnaise",
+      "lettuce",
+      "tomato",
+      "cheese",
+      "butter"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high carb"]
+  },
+  {
+    "dishName": "Chicken Sandwich",
+    "aliases": ["Cold Chicken Sandwich"],
+    "ingredients": [
+      "bread",
+      "chicken",
+      "mayonnaise",
+      "black pepper",
+      "salt",
+      "butter"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high carb"]
+  },
+  {
+    "dishName": "Paratha",
+    "aliases": ["Sada Paratha", "Plain Flatbread"],
+    "ingredients": ["wheat flour", "ghee", "water", "salt"],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high oil", "high carb"]
+  },
+  {
+    "dishName": "Aloo Paratha",
+    "aliases": ["Stuffed Potato Bread"],
+    "ingredients": [
+      "wheat flour",
+      "potato",
+      "ghee",
+      "onion",
+      "green chili",
+      "coriander",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Diabetes", "Obesity"],
+    "dietaryFlags": ["high carb", "high oil"]
+  },
+  {
+    "dishName": "Mooli Paratha",
+    "aliases": ["Radish Stuffed Paratha"],
+    "ingredients": [
+      "wheat flour",
+      "radish",
+      "ghee",
+      "green chili",
+      "coriander",
+      "spices",
+      "salt"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high carb", "high oil"]
+  },
+  {
+    "dishName": "Keema Paratha",
+    "aliases": ["Minced Meat Paratha"],
+    "ingredients": [
+      "wheat flour",
+      "minced beef",
+      "ghee",
+      "onion",
+      "green chili",
+      "coriander",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high carb", "high oil", "high protein"]
+  },
+  {
+    "dishName": "Lachha Paratha",
+    "aliases": ["Flaky Layered Paratha"],
+    "ingredients": ["wheat flour", "ghee", "sugar", "salt", "milk", "water"],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Diabetes"],
+    "dietaryFlags": ["high carb", "high oil"]
+  },
+  {
+    "dishName": "Roghni Naan",
+    "aliases": ["Sesame Bread"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "sugar",
+      "salt",
+      "milk",
+      "butter",
+      "sesame seeds"
+    ],
+    "containsAllergies": ["wheat", "dairy", "sesame"],
+    "unsuitableForIllnesses": ["Diabetes", "Celiac Disease", "Heart Disease"],
+    "dietaryFlags": ["high carb", "high calorie"]
+  },
+  {
+    "dishName": "Garlic Naan",
+    "aliases": ["Lehsun Naan"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "garlic",
+      "butter",
+      "milk",
+      "salt",
+      "sugar"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Celiac Disease"],
+    "dietaryFlags": ["high carb", "high fat"]
+  },
+  {
+    "dishName": "Tandoori Naan",
+    "aliases": ["Plain Naan", "Oven Bread"],
+    "ingredients": ["wheat flour", "yeast", "salt", "water"],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Diabetes", "Celiac Disease"],
+    "dietaryFlags": ["high carb"]
+  },
+  {
+    "dishName": "Kulcha",
+    "aliases": ["Soft Leavened Bread"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "baking powder",
+      "milk",
+      "yogurt",
+      "sugar",
+      "salt",
+      "butter",
+      "sesame seeds"
+    ],
+    "containsAllergies": ["wheat", "dairy", "sesame"],
+    "unsuitableForIllnesses": ["Diabetes", "Celiac Disease", "Obesity"],
+    "dietaryFlags": ["high carb", "high calorie"]
+  },
+  {
+    "dishName": "Puri",
+    "aliases": ["Deep Fried Bread"],
+    "ingredients": ["wheat flour", "cooking oil", "water", "salt"],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Diabetes"],
+    "dietaryFlags": ["deep fried", "high oil", "high carb"]
+  },
+  {
+    "dishName": "Halwa Puri",
+    "aliases": ["Puri Halwa Breakfast"],
+    "ingredients": [
+      "wheat flour",
+      "semolina",
+      "sugar",
+      "ghee",
+      "cooking oil",
+      "chickpeas",
+      "spices",
+      "potato"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Diabetes", "Obesity"],
+    "dietaryFlags": ["deep fried", "high sugar", "high oil", "high carb"]
+  },
+  {
+    "dishName": "Cholay Puri",
+    "aliases": ["Chana Puri"],
+    "ingredients": [
+      "wheat flour",
+      "chickpeas",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "ginger",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Heart Disease", "Diabetes", "Obesity"],
+    "dietaryFlags": ["deep fried", "high oil", "high carb"]
+  },
+  {
+    "dishName": "Nihari Naan",
+    "aliases": ["Beef Nihari with Bread"],
+    "ingredients": [
+      "beef shank",
+      "wheat flour",
+      "ghee",
+      "onion",
+      "ginger",
+      "garlic",
+      "spices",
+      "yeast",
+      "water"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension", "Obesity"],
+    "dietaryFlags": ["high oil", "high calorie", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Katakat",
+    "aliases": ["Kata Kat", "Gurda Kapoora"],
+    "ingredients": [
+      "lamb brain",
+      "lamb kidney",
+      "lamb heart",
+      "butter",
+      "cooking oil",
+      "tomato",
+      "onion",
+      "green chili",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension", "Obesity"],
+    "dietaryFlags": ["high oil", "high cholesterol", "high sodium"]
+  },
+  {
+    "dishName": "Brain Masala",
+    "aliases": ["Bheja Masala", "Maghaz Masala"],
+    "ingredients": [
+      "lamb brain",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "ginger",
+      "garlic",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high oil", "high cholesterol"]
+  },
+  {
+    "dishName": "Chicken Jalfrezi",
+    "aliases": ["Murgh Jalfrezi"],
+    "ingredients": [
+      "chicken",
+      "cooking oil",
+      "tomato",
+      "capsicum",
+      "onion",
+      "egg",
+      "ginger",
+      "garlic",
+      "spices",
+      "ketchup"
+    ],
+    "containsAllergies": ["egg"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Chicken Manchurian",
+    "aliases": ["Desi Chinese Manchurian"],
+    "ingredients": [
+      "chicken breast",
+      "corn flour",
+      "egg",
+      "cooking oil",
+      "garlic",
+      "ketchup",
+      "soy sauce",
+      "vinegar",
+      "sugar",
+      "capsicum"
+    ],
+    "containsAllergies": ["egg", "soy"],
+    "unsuitableForIllnesses": ["Hypertension", "Diabetes", "Heart Disease"],
+    "dietaryFlags": ["deep fried components", "high sodium", "high sugar"]
+  },
+  {
+    "dishName": "Chicken Corn Soup",
+    "aliases": ["Desi Corn Soup"],
+    "ingredients": [
+      "chicken broth",
+      "chicken breast",
+      "sweet corn",
+      "egg",
+      "corn flour",
+      "soy sauce",
+      "vinegar",
+      "black pepper"
+    ],
+    "containsAllergies": ["egg", "soy", "wheat"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium"]
+  },
+  {
+    "dishName": "Hot And Sour Soup",
+    "aliases": ["Desi Hot & Sour Soup"],
+    "ingredients": [
+      "chicken broth",
+      "chicken",
+      "cabbage",
+      "carrot",
+      "egg",
+      "corn flour",
+      "soy sauce",
+      "chili sauce",
+      "vinegar"
+    ],
+    "containsAllergies": ["egg", "soy", "wheat"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium"]
+  },
+  {
+    "dishName": "Chinese Rice",
+    "aliases": ["Vegetable Fried Rice"],
+    "ingredients": [
+      "rice",
+      "carrot",
+      "cabbage",
+      "capsicum",
+      "cooking oil",
+      "garlic",
+      "soy sauce",
+      "black pepper",
+      "vinegar"
+    ],
+    "containsAllergies": ["soy", "wheat"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium", "high carb"]
+  },
+  {
+    "dishName": "Chicken Fried Rice",
+    "aliases": ["Desi Chicken Fried Rice"],
+    "ingredients": [
+      "rice",
+      "chicken",
+      "egg",
+      "carrot",
+      "cabbage",
+      "capsicum",
+      "cooking oil",
+      "garlic",
+      "soy sauce",
+      "black pepper"
+    ],
+    "containsAllergies": ["egg", "soy", "wheat"],
+    "unsuitableForIllnesses": ["Hypertension", "Heart Disease"],
+    "dietaryFlags": ["high sodium", "high carb", "high oil"]
+  },
+  {
+    "dishName": "Egg Fried Rice",
+    "aliases": ["Desi Egg Fried Rice"],
+    "ingredients": [
+      "rice",
+      "egg",
+      "carrot",
+      "cabbage",
+      "capsicum",
+      "cooking oil",
+      "garlic",
+      "soy sauce",
+      "black pepper"
+    ],
+    "containsAllergies": ["egg", "soy", "wheat"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium", "high carb"]
+  },
+  {
+    "dishName": "Chicken Chow Mein",
+    "aliases": ["Desi Chow Mein", "Chicken Noodles"],
+    "ingredients": [
+      "egg noodles",
+      "chicken",
+      "cabbage",
+      "carrot",
+      "capsicum",
+      "cooking oil",
+      "garlic",
+      "soy sauce",
+      "oyster sauce",
+      "black pepper"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy", "molluscs"],
+    "unsuitableForIllnesses": ["Hypertension", "Heart Disease"],
+    "dietaryFlags": ["high sodium", "high oil", "high carb"]
+  },
+  {
+    "dishName": "Chicken Pasta",
+    "aliases": ["Desi Chicken Pasta", "Spicy Pasta"],
+    "ingredients": [
+      "pasta",
+      "chicken",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "capsicum",
+      "garlic",
+      "spices",
+      "soy sauce",
+      "cheese"
+    ],
+    "containsAllergies": ["wheat", "soy", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Macaroni",
+    "aliases": ["Chicken Macaroni", "Desi Macaroni"],
+    "ingredients": [
+      "macaroni pasta",
+      "chicken",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "carrot",
+      "capsicum",
+      "ketchup",
+      "soy sauce",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Pizza",
+    "aliases": ["Cheese Pizza", "Margherita"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "sugar",
+      "salt",
+      "cooking oil",
+      "tomato sauce",
+      "mozzarella cheese",
+      "oregano"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Diabetes"],
+    "dietaryFlags": ["high fat", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Chicken Pizza",
+    "aliases": ["Chicken Tikka Pizza"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "cooking oil",
+      "tomato sauce",
+      "mozzarella cheese",
+      "chicken",
+      "onion",
+      "capsicum",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Fajita Pizza",
+    "aliases": ["Chicken Fajita Pizza"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "cooking oil",
+      "tomato sauce",
+      "mozzarella cheese",
+      "chicken",
+      "onion",
+      "capsicum",
+      "jalapeno",
+      "fajita spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "BBQ Pizza",
+    "aliases": ["BBQ Chicken Pizza"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "cooking oil",
+      "bbq sauce",
+      "mozzarella cheese",
+      "chicken",
+      "onion",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium", "high sugar", "high carb"]
+  },
+  {
+    "dishName": "Stuffed Crust Pizza",
+    "aliases": ["Cheese Burst Pizza"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "cooking oil",
+      "tomato sauce",
+      "mozzarella cheese",
+      "cheddar cheese",
+      "chicken",
+      "onion",
+      "capsicum",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium", "high carb", "high calorie"]
+  },
+  {
+    "dishName": "Donut",
+    "aliases": ["Doughnut"],
+    "ingredients": [
+      "wheat flour",
+      "sugar",
+      "milk",
+      "butter",
+      "egg",
+      "yeast",
+      "cooking oil",
+      "chocolate glaze"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity", "Heart Disease"],
+    "dietaryFlags": ["deep fried", "high sugar", "high fat", "high carb"]
+  },
+  {
+    "dishName": "Chocolate Cake",
+    "aliases": ["Fudge Cake"],
+    "ingredients": [
+      "wheat flour",
+      "sugar",
+      "cocoa powder",
+      "egg",
+      "butter",
+      "milk",
+      "baking powder",
+      "vanilla extract",
+      "chocolate cream"
+    ],
+    "containsAllergies": ["wheat", "egg", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity", "Heart Disease"],
+    "dietaryFlags": ["high sugar", "high fat", "high carb", "high calorie"]
+  },
+  {
+    "dishName": "Vanilla Cake",
+    "aliases": ["Sponge Cake", "Pound Cake"],
+    "ingredients": [
+      "wheat flour",
+      "sugar",
+      "butter",
+      "egg",
+      "milk",
+      "baking powder",
+      "vanilla extract"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity", "Heart Disease"],
+    "dietaryFlags": ["high sugar", "high fat", "high carb"]
+  },
+  {
+    "dishName": "Black Forest Cake",
+    "aliases": ["Black Forest Pastry"],
+    "ingredients": [
+      "wheat flour",
+      "sugar",
+      "cocoa powder",
+      "egg",
+      "cream",
+      "cherries",
+      "cherry syrup",
+      "chocolate shavings"
+    ],
+    "containsAllergies": ["wheat", "egg", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity", "Heart Disease"],
+    "dietaryFlags": ["high sugar", "high fat", "high carb", "high calorie"]
+  },
+  {
+    "dishName": "Cupcake",
+    "aliases": ["Fairy Cake", "Muffin"],
+    "ingredients": [
+      "wheat flour",
+      "sugar",
+      "butter",
+      "egg",
+      "milk",
+      "baking powder",
+      "vanilla extract",
+      "frosting"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high fat", "high carb"]
+  },
+  {
+    "dishName": "Brownie",
+    "aliases": ["Chocolate Brownie", "Fudge Brownie"],
+    "ingredients": [
+      "wheat flour",
+      "sugar",
+      "butter",
+      "cocoa powder",
+      "egg",
+      "vanilla extract",
+      "chocolate chips"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg", "soy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity", "Heart Disease"],
+    "dietaryFlags": ["high sugar", "high fat", "high carb"]
+  },
+  {
+    "dishName": "Cookies",
+    "aliases": ["Chocolate Chip Cookies"],
+    "ingredients": [
+      "wheat flour",
+      "butter",
+      "brown sugar",
+      "white sugar",
+      "egg",
+      "baking soda",
+      "vanilla extract",
+      "chocolate chips"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg", "soy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity", "Heart Disease"],
+    "dietaryFlags": ["high sugar", "high fat", "high carb"]
+  },
+  {
+    "dishName": "Biscuits",
+    "aliases": ["Zeera Biscuit", "Tea Biscuit"],
+    "ingredients": [
+      "wheat flour",
+      "sugar",
+      "butter",
+      "milk",
+      "baking powder",
+      "cumin seeds",
+      "salt"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high carb", "high fat"]
+  },
+  {
+    "dishName": "Rusks",
+    "aliases": ["Cake Rusk", "Tea Rusk"],
+    "ingredients": [
+      "wheat flour",
+      "sugar",
+      "egg",
+      "butter",
+      "baking powder",
+      "vanilla extract"
+    ],
+    "containsAllergies": ["wheat", "egg", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high carb", "high sugar"]
+  },
+  {
+    "dishName": "Bakarkhani",
+    "aliases": ["Baqarkhani", "Puff Pastry Biscuit"],
+    "ingredients": ["wheat flour", "sugar", "ghee", "milk", "salt", "cardamom"],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high carb", "high calorie"]
+  },
+  {
+    "dishName": "Sheermal",
+    "aliases": ["Shirmal", "Saffron Bread"],
+    "ingredients": [
+      "wheat flour",
+      "milk",
+      "sugar",
+      "ghee",
+      "yeast",
+      "saffron",
+      "cardamom",
+      "kewra water"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity", "Heart Disease"],
+    "dietaryFlags": ["high carb", "high fat", "high sugar"]
+  },
+  {
+    "dishName": "Qeema Naan",
+    "aliases": ["Minced Meat Bread"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "milk",
+      "butter",
+      "minced beef",
+      "onion",
+      "green chili",
+      "coriander",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Diabetes"],
+    "dietaryFlags": ["high carb", "high fat", "high protein"]
+  },
+  {
+    "dishName": "Chicken Cheese Naan",
+    "aliases": ["Cheese Stuffed Naan"],
+    "ingredients": [
+      "wheat flour",
+      "yeast",
+      "milk",
+      "butter",
+      "chicken",
+      "mozzarella cheese",
+      "onion",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high carb", "high fat", "high sodium"]
+  },
+  {
+    "dishName": "Mutton Chops",
+    "aliases": ["Chaamp Roast", "Grilled Chops"],
+    "ingredients": [
+      "mutton chops",
+      "yogurt",
+      "papaya paste",
+      "ginger",
+      "garlic",
+      "lemon juice",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["high fat", "high protein", "high sodium"]
+  },
+  {
+    "dishName": "BBQ Wings",
+    "aliases": ["Chicken Wings", "Spicy Wings"],
+    "ingredients": [
+      "chicken wings",
+      "cooking oil",
+      "bbq sauce",
+      "garlic",
+      "ginger",
+      "lemon juice",
+      "spices"
+    ],
+    "containsAllergies": ["soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium"]
+  },
+  {
+    "dishName": "Chicken Nuggets",
+    "aliases": ["Fried Nuggets"],
+    "ingredients": [
+      "minced chicken",
+      "wheat flour",
+      "breadcrumbs",
+      "egg",
+      "garlic powder",
+      "onion powder",
+      "salt",
+      "black pepper",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "egg"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high oil", "high sodium"]
+  },
+  {
+    "dishName": "French Fries",
+    "aliases": ["Potato Chips", "Finger Chips"],
+    "ingredients": ["potato", "cooking oil", "salt"],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["deep fried", "high oil", "high carb", "high sodium"]
+  },
+  {
+    "dishName": "Loaded Fries",
+    "aliases": ["Cheese Fries", "Pizza Fries"],
+    "ingredients": [
+      "potato",
+      "cooking oil",
+      "cheddar cheese",
+      "mozzarella cheese",
+      "chicken chunks",
+      "jalapeno",
+      "mayonnaise",
+      "spices"
+    ],
+    "containsAllergies": ["dairy", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": [
+      "deep fried",
+      "high fat",
+      "high calorie",
+      "high sodium",
+      "high carb"
+    ]
+  },
+  {
+    "dishName": "Masala Fries",
+    "aliases": ["Spicy Fries"],
+    "ingredients": [
+      "potato",
+      "cooking oil",
+      "chaat masala",
+      "red chili powder",
+      "salt",
+      "lemon juice"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Hypertension"],
+    "dietaryFlags": ["deep fried", "high oil", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Anday Wala Burger",
+    "aliases": ["Bun Kebab", "Desi Egg Burger"],
+    "ingredients": [
+      "burger bun",
+      "beef patty",
+      "egg",
+      "chana daal",
+      "onion",
+      "yogurt",
+      "mint",
+      "green chili",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "egg", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high carb"]
+  },
+  {
+    "dishName": "Omelette",
+    "aliases": ["Plain Omelette", "Fried Egg"],
+    "ingredients": ["egg", "cooking oil", "salt", "black pepper"],
+    "containsAllergies": ["egg"],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high fat", "high protein"]
+  },
+  {
+    "dishName": "Masala Omelette",
+    "aliases": ["Desi Omelette", "Spicy Omelette"],
+    "ingredients": [
+      "egg",
+      "onion",
+      "tomato",
+      "green chili",
+      "coriander",
+      "cooking oil",
+      "salt",
+      "red chili powder"
+    ],
+    "containsAllergies": ["egg"],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high fat", "high protein", "high sodium"]
+  },
+  {
+    "dishName": "Anda Paratha",
+    "aliases": ["Egg Paratha", "Fried Egg Flatbread"],
+    "ingredients": [
+      "wheat flour",
+      "egg",
+      "ghee",
+      "salt",
+      "black pepper",
+      "water"
+    ],
+    "containsAllergies": ["wheat", "egg", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high carb", "high calorie"]
+  },
+  {
+    "dishName": "Anda Curry",
+    "aliases": ["Egg Curry", "Anday Ka Salan"],
+    "ingredients": [
+      "egg",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "yogurt",
+      "spices"
+    ],
+    "containsAllergies": ["egg", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium"]
+  },
+  {
+    "dishName": "Boiled Eggs",
+    "aliases": ["Ublay Anday", "Hard Boiled Egg"],
+    "ingredients": ["egg", "water", "salt", "black pepper"],
+    "containsAllergies": ["egg"],
+    "unsuitableForIllnesses": [],
+    "dietaryFlags": ["high protein", "low carb"]
+  },
+  {
+    "dishName": "Chicken Curry",
+    "aliases": ["Murgh Salan", "Chicken Gravy"],
+    "ingredients": [
+      "chicken",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices",
+      "coriander"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Beef Curry",
+    "aliases": ["Beef Salan", "Gosht Curry"],
+    "ingredients": [
+      "beef",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices",
+      "coriander"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Mutton Curry",
+    "aliases": ["Mutton Salan", "Gosht Gravy"],
+    "ingredients": [
+      "mutton",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices",
+      "yogurt"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Fish Curry",
+    "aliases": ["Machli Ka Salan", "Fish Gravy"],
+    "ingredients": [
+      "fish",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "fenugreek seeds",
+      "spices"
+    ],
+    "containsAllergies": ["fish"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium", "high protein"]
+  },
+  {
+    "dishName": "Fish Fry",
+    "aliases": ["Tali Hui Machli", "Fried Fish"],
+    "ingredients": [
+      "fish",
+      "cooking oil",
+      "lemon juice",
+      "garlic",
+      "ginger",
+      "gram flour",
+      "spices"
+    ],
+    "containsAllergies": ["fish"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high fat", "high protein"]
+  },
+  {
+    "dishName": "Fish Pakora",
+    "aliases": ["Machli Pakora", "Fish Fritters"],
+    "ingredients": [
+      "fish",
+      "gram flour",
+      "cooking oil",
+      "carom seeds",
+      "salt",
+      "red chili powder",
+      "coriander"
+    ],
+    "containsAllergies": ["fish"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high fat"]
+  },
+  {
+    "dishName": "Prawn Masala",
+    "aliases": ["Jhinga Masala", "Shrimp Curry"],
+    "ingredients": [
+      "prawns",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "green chili",
+      "spices"
+    ],
+    "containsAllergies": ["shellfish"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium", "high protein"]
+  },
+  {
+    "dishName": "Prawn Biryani",
+    "aliases": ["Jhinga Biryani", "Shrimp Rice"],
+    "ingredients": [
+      "prawns",
+      "basmati rice",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "yogurt",
+      "garlic",
+      "ginger",
+      "spices",
+      "mint"
+    ],
+    "containsAllergies": ["shellfish", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium", "high carb"]
+  },
+  {
+    "dishName": "Chicken Alfredo",
+    "aliases": ["Alfredo Pasta", "White Sauce Pasta"],
+    "ingredients": [
+      "fettuccine pasta",
+      "chicken breast",
+      "butter",
+      "heavy cream",
+      "parmesan cheese",
+      "garlic",
+      "black pepper",
+      "salt"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie", "high carb"]
+  },
+  {
+    "dishName": "Chicken Cheese Pasta",
+    "aliases": ["Cheesy Chicken Pasta"],
+    "ingredients": [
+      "penne pasta",
+      "chicken",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "tomato sauce",
+      "cheddar cheese",
+      "mozzarella cheese",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie", "high carb"]
+  },
+  {
+    "dishName": "Lasagna",
+    "aliases": ["Chicken Lasagna", "Beef Lasagna"],
+    "ingredients": [
+      "lasagna sheets",
+      "minced meat",
+      "onion",
+      "garlic",
+      "tomato sauce",
+      "white sauce",
+      "mozzarella cheese",
+      "butter",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie", "high carb"]
+  },
+  {
+    "dishName": "Spaghetti",
+    "aliases": ["Spaghetti Bolognese", "Desi Spaghetti"],
+    "ingredients": [
+      "spaghetti pasta",
+      "minced beef",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "tomato paste",
+      "salt",
+      "black pepper",
+      "oregano"
+    ],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Hypertension", "Diabetes"],
+    "dietaryFlags": ["high carb", "high sodium"]
+  },
+  {
+    "dishName": "Momos",
+    "aliases": ["Vegetable Momos", "Dumplings"],
+    "ingredients": [
+      "wheat flour",
+      "cabbage",
+      "carrot",
+      "onion",
+      "garlic",
+      "ginger",
+      "soy sauce",
+      "salt",
+      "black pepper",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "soy"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high carb", "high sodium"]
+  },
+  {
+    "dishName": "Chicken Momos",
+    "aliases": ["Chicken Dumplings", "Steamed Chicken Momos"],
+    "ingredients": [
+      "wheat flour",
+      "minced chicken",
+      "onion",
+      "garlic",
+      "ginger",
+      "soy sauce",
+      "salt",
+      "black pepper",
+      "sesame oil"
+    ],
+    "containsAllergies": ["wheat", "soy", "sesame"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high carb", "high sodium", "high protein"]
+  },
+  {
+    "dishName": "Spring Rolls",
+    "aliases": ["Vegetable Spring Rolls"],
+    "ingredients": [
+      "wheat flour wrappers",
+      "cabbage",
+      "carrot",
+      "capsicum",
+      "soy sauce",
+      "black pepper",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high fat", "high carb"]
+  },
+  {
+    "dishName": "Egg Rolls",
+    "aliases": ["Desi Egg Rolls", "Fried Egg Rolls"],
+    "ingredients": [
+      "wheat flour wrappers",
+      "egg",
+      "cabbage",
+      "carrot",
+      "soy sauce",
+      "cooking oil",
+      "black pepper"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high fat", "high carb"]
+  },
+  {
+    "dishName": "Chicken Roll",
+    "aliases": ["Crispy Chicken Roll"],
+    "ingredients": [
+      "wheat flour wrappers",
+      "minced chicken",
+      "onion",
+      "garlic",
+      "soy sauce",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high fat", "high protein"]
+  },
+  {
+    "dishName": "Beef Roll",
+    "aliases": ["Minced Beef Roll"],
+    "ingredients": [
+      "wheat flour wrappers",
+      "minced beef",
+      "onion",
+      "garlic",
+      "soy sauce",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high fat", "high protein"]
+  },
+  {
+    "dishName": "Vegetable Roll",
+    "aliases": ["Veggie Fried Roll"],
+    "ingredients": [
+      "wheat flour wrappers",
+      "potato",
+      "peas",
+      "carrot",
+      "cabbage",
+      "soy sauce",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["deep fried", "high fat", "high carb", "vegetarian"]
+  },
+  {
+    "dishName": "Paneer Karahi",
+    "aliases": ["Kadai Paneer"],
+    "ingredients": [
+      "paneer",
+      "cooking oil",
+      "tomato",
+      "capsicum",
+      "onion",
+      "green chili",
+      "ginger",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high fat", "high sodium", "vegetarian"]
+  },
+  {
+    "dishName": "Paneer Handi",
+    "aliases": ["Creamy Paneer Handi"],
+    "ingredients": [
+      "paneer",
+      "cooking oil",
+      "butter",
+      "cream",
+      "tomato",
+      "onion",
+      "ginger",
+      "garlic",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie", "vegetarian"]
+  },
+  {
+    "dishName": "Palak Paneer",
+    "aliases": ["Spinach and Cottage Cheese"],
+    "ingredients": [
+      "spinach",
+      "paneer",
+      "cooking oil",
+      "cream",
+      "onion",
+      "tomato",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease"],
+    "dietaryFlags": ["high fat", "vegetarian"]
+  },
+  {
+    "dishName": "Vegetable Pulao",
+    "aliases": ["Sabzi Pulao", "Mix Veg Pulao"],
+    "ingredients": [
+      "basmati rice",
+      "potato",
+      "peas",
+      "carrot",
+      "cooking oil",
+      "onion",
+      "garlic",
+      "ginger",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Diabetes", "Hypertension"],
+    "dietaryFlags": ["high carb", "high sodium", "vegetarian"]
+  },
+  {
+    "dishName": "Vegetable Biryani",
+    "aliases": ["Sabzi Biryani", "Veg Dum Biryani"],
+    "ingredients": [
+      "basmati rice",
+      "potato",
+      "peas",
+      "carrot",
+      "beans",
+      "yogurt",
+      "cooking oil",
+      "onion",
+      "tomato",
+      "spices",
+      "mint"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Diabetes", "Hypertension"],
+    "dietaryFlags": ["high carb", "high sodium", "vegetarian"]
+  },
+  {
+    "dishName": "Aloo Tikki",
+    "aliases": ["Potato Cutlets", "Aloo Kabab"],
+    "ingredients": [
+      "potato",
+      "corn flour",
+      "onion",
+      "green chili",
+      "coriander",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity", "Diabetes"],
+    "dietaryFlags": ["deep fried", "high carb", "high oil", "vegetarian"]
+  },
+  {
+    "dishName": "Shakarkandi Chaat",
+    "aliases": ["Sweet Potato Chaat", "Spicy Sweet Potato"],
+    "ingredients": [
+      "sweet potato",
+      "orange juice",
+      "lemon juice",
+      "chaat masala",
+      "salt",
+      "black pepper",
+      "tamarind chutney"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Diabetes", "Hypertension"],
+    "dietaryFlags": ["high carb", "high sodium", "vegetarian"]
+  },
+  {
+    "dishName": "Corn Chaat",
+    "aliases": ["Spicy Corn Salad", "Bhutta Chaat"],
+    "ingredients": [
+      "sweet corn",
+      "butter",
+      "lemon juice",
+      "chaat masala",
+      "salt",
+      "red chili powder",
+      "onion",
+      "tomato",
+      "coriander"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium", "vegetarian"]
+  },
+  {
+    "dishName": "Roasted Corn",
+    "aliases": ["Bhutta", "Chhalli"],
+    "ingredients": [
+      "corn on the cob",
+      "lemon juice",
+      "salt",
+      "red chili powder",
+      "chaat masala"
+    ],
+    "containsAllergies": [],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high sodium", "vegetarian", "low fat"]
+  },
+  {
+    "dishName": "Bhelpuri",
+    "aliases": ["Bhel Puri"],
+    "ingredients": [
+      "puffed rice",
+      "sev",
+      "wheat flour papri",
+      "potato",
+      "onion",
+      "tamarind chutney",
+      "mint chutney",
+      "chaat masala",
+      "coriander"
+    ],
+    "containsAllergies": ["wheat"],
+    "unsuitableForIllnesses": ["Diabetes", "Hypertension"],
+    "dietaryFlags": ["high carb", "high sodium", "vegetarian"]
+  },
+  {
+    "dishName": "Chicken Cheese Burger",
+    "aliases": ["Cheesy Chicken Burger"],
+    "ingredients": [
+      "burger bun",
+      "chicken patty",
+      "cheddar cheese",
+      "mayonnaise",
+      "lettuce",
+      "tomato",
+      "onion",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie", "high carb"]
+  },
+  {
+    "dishName": "Beef Burger",
+    "aliases": ["Beef Patty Burger"],
+    "ingredients": [
+      "burger bun",
+      "beef patty",
+      "mayonnaise",
+      "ketchup",
+      "lettuce",
+      "tomato",
+      "onion",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie", "high carb"]
+  },
+  {
+    "dishName": "Double Patty Burger",
+    "aliases": ["Double Beef Burger"],
+    "ingredients": [
+      "burger bun",
+      "beef patty",
+      "cheddar cheese",
+      "mayonnaise",
+      "ketchup",
+      "lettuce",
+      "tomato",
+      "onion",
+      "cooking oil"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie", "high carb", "high protein"]
+  },
+  {
+    "dishName": "Grilled Sandwich",
+    "aliases": ["Grilled Chicken Sandwich"],
+    "ingredients": [
+      "bread",
+      "chicken",
+      "mayonnaise",
+      "cheese",
+      "butter",
+      "black pepper",
+      "salt"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie", "high carb"]
+  },
+  {
+    "dishName": "Cheese Sandwich",
+    "aliases": ["Grilled Cheese", "Cheese Toastie"],
+    "ingredients": ["bread", "cheddar cheese", "mozzarella cheese", "butter"],
+    "containsAllergies": ["wheat", "dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high carb", "vegetarian"]
+  },
+  {
+    "dishName": "Chicken Wrap",
+    "aliases": ["Tortilla Chicken Wrap", "Fajita Wrap"],
+    "ingredients": [
+      "tortilla bread",
+      "chicken breast",
+      "mayonnaise",
+      "garlic sauce",
+      "lettuce",
+      "tomato",
+      "onion",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high carb"]
+  },
+  {
+    "dishName": "Beef Wrap",
+    "aliases": ["Tortilla Beef Wrap"],
+    "ingredients": [
+      "tortilla bread",
+      "beef strips",
+      "mayonnaise",
+      "bbq sauce",
+      "lettuce",
+      "tomato",
+      "onion",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["wheat", "egg", "soy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high carb"]
+  },
+  {
+    "dishName": "Tandoori Chicken",
+    "aliases": ["Oven Roasted Tandoori Chicken"],
+    "ingredients": [
+      "chicken",
+      "yogurt",
+      "lemon juice",
+      "garlic",
+      "ginger",
+      "tandoori masala",
+      "cooking oil",
+      "food coloring"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high protein", "high sodium"]
+  },
+  {
+    "dishName": "BBQ Chicken",
+    "aliases": ["Barbeque Chicken"],
+    "ingredients": [
+      "chicken",
+      "bbq sauce",
+      "garlic",
+      "ginger",
+      "lemon juice",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["soy"],
+    "unsuitableForIllnesses": ["Hypertension"],
+    "dietaryFlags": ["high protein", "high sodium", "high sugar"]
+  },
+  {
+    "dishName": "Chicken Roast",
+    "aliases": ["Roasted Chicken", "Chargha"],
+    "ingredients": [
+      "whole chicken",
+      "yogurt",
+      "lemon juice",
+      "garlic",
+      "ginger",
+      "cooking oil",
+      "spices",
+      "chat masala"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high fat", "high protein", "high sodium"]
+  },
+  {
+    "dishName": "Mutton Roast",
+    "aliases": ["Mutton Leg Roast", "Raan Roast"],
+    "ingredients": [
+      "mutton leg",
+      "yogurt",
+      "raw papaya paste",
+      "lemon juice",
+      "garlic",
+      "ginger",
+      "cooking oil",
+      "spices"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high fat", "high protein", "high sodium"]
+  },
+  {
+    "dishName": "Beef Steak",
+    "aliases": ["Grilled Beef Steak"],
+    "ingredients": [
+      "beef steak",
+      "butter",
+      "garlic",
+      "rosemary",
+      "thyme",
+      "black pepper",
+      "salt",
+      "olive oil"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high fat", "high protein", "high sodium"]
+  },
+  {
+    "dishName": "Chicken Steak",
+    "aliases": ["Grilled Chicken Steak", "Mushroom Steak"],
+    "ingredients": [
+      "chicken breast",
+      "butter",
+      "mushroom sauce",
+      "cream",
+      "garlic",
+      "black pepper",
+      "salt",
+      "olive oil"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high protein"]
+  },
+  {
+    "dishName": "Chicken Cheese Steak",
+    "aliases": ["Cheesy Chicken Steak", "Jalapeno Cheese Steak"],
+    "ingredients": [
+      "chicken breast",
+      "cheddar cheese",
+      "mozzarella cheese",
+      "butter",
+      "garlic",
+      "jalapeno",
+      "black pepper",
+      "salt",
+      "olive oil"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high protein", "high calorie"]
+  },
+  {
+    "dishName": "Pancakes",
+    "aliases": ["Flapjacks", "Sweet Pancakes"],
+    "ingredients": [
+      "wheat flour",
+      "milk",
+      "egg",
+      "butter",
+      "sugar",
+      "baking powder",
+      "vanilla extract",
+      "maple syrup"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high carb", "high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Waffles",
+    "aliases": ["Belgian Waffles", "Sweet Waffles"],
+    "ingredients": [
+      "wheat flour",
+      "milk",
+      "egg",
+      "butter",
+      "sugar",
+      "baking powder",
+      "vanilla extract",
+      "honey"
+    ],
+    "containsAllergies": ["wheat", "dairy", "egg"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high carb", "high sugar", "high calorie"]
+  },
+  {
+    "dishName": "French Toast",
+    "aliases": ["Meetha Toast", "Egg Toast"],
+    "ingredients": [
+      "bread",
+      "egg",
+      "milk",
+      "sugar",
+      "butter",
+      "cinnamon",
+      "vanilla extract"
+    ],
+    "containsAllergies": ["wheat", "egg", "dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Heart Disease"],
+    "dietaryFlags": ["high carb", "high sugar", "high fat"]
+  },
+  {
+    "dishName": "Custard",
+    "aliases": ["Fruit Custard", "Vanilla Custard"],
+    "ingredients": [
+      "milk",
+      "custard powder",
+      "sugar",
+      "banana",
+      "apple",
+      "grapes",
+      "jelly"
+    ],
+    "containsAllergies": ["dairy", "wheat"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high carb"]
+  },
+  {
+    "dishName": "Trifle",
+    "aliases": ["Fruit Trifle", "Jelly Trifle"],
+    "ingredients": [
+      "milk",
+      "custard powder",
+      "sugar",
+      "sponge cake",
+      "fruit cocktail",
+      "jelly",
+      "cream"
+    ],
+    "containsAllergies": ["dairy", "wheat", "egg"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high carb", "high calorie"]
+  },
+  {
+    "dishName": "Bread Pudding",
+    "aliases": ["Meetha Tukra", "Shahi Tukray"],
+    "ingredients": [
+      "bread",
+      "milk",
+      "sugar",
+      "ghee",
+      "cardamom",
+      "saffron",
+      "almonds",
+      "pistachios",
+      "khoya"
+    ],
+    "containsAllergies": ["wheat", "dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity", "Heart Disease"],
+    "dietaryFlags": [
+      "deep fried bread",
+      "high sugar",
+      "high fat",
+      "high calorie"
+    ]
+  },
+  {
+    "dishName": "Rice Pudding",
+    "aliases": ["Kheer", "Chawal Ki Kheer"],
+    "ingredients": [
+      "milk",
+      "rice",
+      "sugar",
+      "almonds",
+      "pistachios",
+      "cardamom",
+      "kewra water"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar", "high carb"]
+  },
+  {
+    "dishName": "Mango Ice Cream",
+    "aliases": ["Mango Gelato"],
+    "ingredients": [
+      "milk",
+      "heavy cream",
+      "mango puree",
+      "sugar",
+      "condensed milk"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high fat"]
+  },
+  {
+    "dishName": "Pista Kulfi",
+    "aliases": ["Pistachio Kulfi", "Matka Kulfi"],
+    "ingredients": [
+      "milk",
+      "sugar",
+      "khoya",
+      "pistachios",
+      "almonds",
+      "cardamom"
+    ],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Obesity"],
+    "dietaryFlags": ["high sugar", "high calorie"]
+  },
+  {
+    "dishName": "Badam Milk",
+    "aliases": ["Almond Milk", "Badam Ka Sharbat"],
+    "ingredients": ["milk", "almonds", "sugar", "cardamom", "saffron"],
+    "containsAllergies": ["dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes"],
+    "dietaryFlags": ["high sugar"]
+  },
+  {
+    "dishName": "Dry Fruit Halwa",
+    "aliases": ["Sohan Halwa", "Multani Halwa"],
+    "ingredients": [
+      "wheat flour",
+      "milk",
+      "sugar",
+      "ghee",
+      "almonds",
+      "pistachios",
+      "walnuts",
+      "cardamom"
+    ],
+    "containsAllergies": ["wheat", "dairy", "tree nuts"],
+    "unsuitableForIllnesses": ["Diabetes", "Heart Disease", "Obesity"],
+    "dietaryFlags": ["high sugar", "high fat", "high calorie"]
+  },
+  {
+    "dishName": "Chicken Achari",
+    "aliases": ["Achari Murgh", "Pickle Chicken"],
+    "ingredients": [
+      "chicken",
+      "cooking oil",
+      "yogurt",
+      "tomato",
+      "onion",
+      "ginger",
+      "garlic",
+      "fennel seeds",
+      "mustard seeds",
+      "nigella seeds",
+      "spices"
+    ],
+    "containsAllergies": ["dairy", "mustard"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Achari Gosht",
+    "aliases": ["Beef Achari", "Mutton Achari"],
+    "ingredients": [
+      "beef",
+      "cooking oil",
+      "yogurt",
+      "tomato",
+      "onion",
+      "ginger",
+      "garlic",
+      "fennel seeds",
+      "mustard seeds",
+      "nigella seeds",
+      "spices"
+    ],
+    "containsAllergies": ["dairy", "mustard"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high sodium"]
+  },
+  {
+    "dishName": "Desi Murgh Karahi",
+    "aliases": ["Village Style Chicken Karahi"],
+    "ingredients": [
+      "desi chicken",
+      "ghee",
+      "tomato",
+      "green chili",
+      "ginger",
+      "garlic",
+      "black pepper",
+      "coriander"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Hypertension"],
+    "dietaryFlags": ["high oil", "high fat", "high sodium"]
+  },
+  {
+    "dishName": "Makhni Handi",
+    "aliases": ["Butter Chicken Handi"],
+    "ingredients": [
+      "boneless chicken",
+      "butter",
+      "cream",
+      "cooking oil",
+      "tomato puree",
+      "onion",
+      "garlic",
+      "ginger",
+      "spices",
+      "fenugreek leaves"
+    ],
+    "containsAllergies": ["dairy"],
+    "unsuitableForIllnesses": ["Heart Disease", "Obesity"],
+    "dietaryFlags": ["high fat", "high calorie"]
+  }
+]

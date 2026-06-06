@@ -3,6 +3,8 @@ import pytesseract
 import sys
 import json
 
+sys.stdout.reconfigure(encoding='utf-8')
+
 # Windows specific path configuration (Uncommented and verified)
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
@@ -19,17 +21,17 @@ def extract_text_from_image(image_path):
         # 3. Preprocessing: Apply a threshold to make text stand out
         _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
 
-        # 4. Extract text using Tesseract
-        extracted_text = pytesseract.image_to_string(thresh)
-
-        # 5. CRITICAL FIX: Use PSM 6 (Assume a single uniform block of text)
-        custom_config = r'--oem 3 --psm 6'
+        # 4. CRITICAL FIX: Use PSM 11 (Sparse text) which is perfect for 1 or 2 isolated, bold words.
+        # If PSM 11 is ever messy, you can change this back to --psm 6
+        custom_config = r'--oem 3 --psm 11'
+        
+        # Extract text ONCE using the custom configuration
         text = pytesseract.image_to_string(thresh, config=custom_config)
 
         # 5. Print the result as a JSON string so Node.js can easily parse it
         result = {
             "success": True, 
-            "text": extracted_text.strip()
+            "text": text.strip()  # Now we are returning the correctly configured text!
         }
         print(json.dumps(result))
 

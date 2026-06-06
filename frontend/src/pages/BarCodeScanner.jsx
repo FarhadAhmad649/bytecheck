@@ -28,7 +28,7 @@ const BarcodeScanner = ({ onResult }) => {
         }
       },
       (error) => {
-        // Ignore frame processing errors safely
+       console.log("Barcode Scanner Error: ", error)
       },
     );
 

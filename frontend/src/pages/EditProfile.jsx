@@ -49,17 +49,24 @@ const EditProfile = () => {
       try {
         const { data } = await API.get("/users/profile");
 
-        // Pre-fill the form with existing data
+        // FIX 1: Safely grab the user object from the API response
+        // (Sometimes APIs return {user: {...}}, sometimes just the object itself)
+        const userData = data.user || data;
+
+        const myProfile =
+          userData.familyProfiles && userData.familyProfiles.length > 0
+            ? userData.familyProfiles[0]
+            : {};
+
         setFormData({
-          fullName: data.fullName || "",
-          allergies: data.healthProfile?.allergies || [],
-          // Convert arrays back to comma-separated strings for the input boxes
-          illnesses: data.healthProfile?.illnesses?.join(", ") || "",
-          prohibitedFoods:
-            data.healthProfile?.prohibitedFoods?.join(", ") || "",
+          fullName: userData.fullName || "",
+          // FIX 2: Keep allergies as an ARRAY so your toggleAllergy function doesn't crash!
+          allergies: myProfile.allergies || [],
+          illnesses: myProfile.illnesses?.join(", ") || "",
+          prohibitedFoods: myProfile.prohibitedFoods?.join(", ") || "",
         });
       } catch (err) {
-        toast.error("Failed to load profile data.");
+        toast.error("Failed to load profile data.", err);
         navigate("/dashboard");
       } finally {
         setLoading(false);
@@ -208,6 +215,6 @@ const EditProfile = () => {
       </div>
     </div>
   );
-};
+};;
 
 export default EditProfile;

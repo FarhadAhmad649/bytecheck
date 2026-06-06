@@ -13,6 +13,8 @@ import History from "./pages/History";
 import { ToastContainer } from "react-toastify";
 import AddDish from './pages/AddDish'
 import EditProfile from "./pages/EditProfile";
+import ManageDishes from "./pages/ManageDishes";
+import ManageFamily from "./pages/ManageFamily";
 
 function App() {
   return (
@@ -46,7 +48,7 @@ function App() {
           }
         />
 
-        {/* 2. Add the History as a Private Route */}
+        {/* 3. Add the History as a Private Route */}
         <Route
           path="/history"
           element={
@@ -56,7 +58,7 @@ function App() {
           }
         />
 
-        {/* 2. Add the AddDish as a Private Route */}
+        {/* 4. Add the AddDish as a Private Route */}
         <Route
           path="/add-dish"
           element={
@@ -66,10 +68,22 @@ function App() {
           }
         />
 
-        {/* 2.  Add the EditProfile as a private route */}
-        <Route path="/edit-profile" element={<EditProfile />} />
+        {/* 5. Add the ManageDishes as a Private Route */}
+        <Route
+          path="/manage-dishes"
+          element={
+            <PrivateRoute>
+              <ManageDishes />
+            </PrivateRoute>
+          }
+        />
 
-        
+        {/* 6.  Add the EditProfile as a private route */}
+        <Route path="/edit-profile" element={<EditProfile />} />
+      
+
+        {/* 7.  Add the family memeber profiles */}
+          <Route path="/manage-family" element={<ManageFamily />} />
       </Routes>
     </AuthProvider>
   );
