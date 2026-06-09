@@ -80,7 +80,7 @@ const Dashboard = () => {
     fetchProfile();
   }, []);
 
-  // 🔴 Handle opening the edit modal and formatting arrays for text inputs
+  //  Handle opening the edit modal and formatting arrays for text inputs
   const openEditModal = (member) => {
     setEditingProfile({
       ...member,
@@ -90,7 +90,7 @@ const Dashboard = () => {
     });
   };
 
-  // 🔴 The Delete Function
+  // The Delete Function
   const handleDeleteProfile = async (profileId, profileName) => {
     if (
       window.confirm(
@@ -113,7 +113,7 @@ const Dashboard = () => {
     }
   };
 
-  // 🔴 The Update Function
+  // The Update Function
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
@@ -292,7 +292,7 @@ const Dashboard = () => {
                         </div>
                       </div>
 
-                      {/* 🔴 NEW: Edit / Delete Buttons */}
+                      {/* NEW: Edit / Delete Buttons */}
                       <div className="flex justify-end gap-4 mt-4 pt-3 border-t border-slate-700/50">
                         <button
                           onClick={() => openEditModal(member)}
@@ -341,6 +341,13 @@ const Dashboard = () => {
               🕒 View Scan History
             </button>
 
+            <button
+              onClick={() => navigate("/grocery-list")}
+              className="w-full flex items-center justify-center gap-3 py-4 rounded-xl font-semibold text-base text-emerald-900 bg-emerald-400 hover:bg-emerald-300 transition-colors duration-200 shadow-md shadow-emerald-900/20 anim-slide-up anim-delay-3"
+            >
+              🛒 View Safe Grocery List
+            </button>
+
             {profile?.role === "admin" && (
               <>
                 <button
@@ -360,7 +367,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* 🔴 NEW: Edit Family Profile Modal */}
+        {/* NEW: Edit Family Profile Modal */}
         {editingProfile && (
           <div className="fixed inset-0 bg-slate-950/90 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
             <div className="bg-slate-900 border border-slate-700 p-6 sm:p-8 rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl shadow-black">

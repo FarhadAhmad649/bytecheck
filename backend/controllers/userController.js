@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken'
 // @access  Public
 export const registerUser = async (req, res) => {
   try {
-    // 🔴 DEBUG: This will print exactly what React is sending to the backend!
+    // DEBUG: This will print exactly what React is sending to the backend!
     console.log("📝 INCOMING REGISTRATION DATA:", req.body);
 
     // 1. Catch the data (Handles both flat data and nested 'healthProfile' data)
@@ -77,7 +77,7 @@ export const registerUser = async (req, res) => {
 export const authUser = async (req, res) => {
   try {
 
-    console.log("🚨 LOGIN ROUTE HIT! HERE IS THE DATA:", req.body);
+    console.log("LOGIN ROUTE HIT! HERE IS THE DATA:", req.body);
     
     const { email, password } = req.body;
 
@@ -119,18 +119,20 @@ export const getUserProfile = async (req, res) => {
     if (user) {
       res.json({
         _id: user._id,
-        fullName: user.fullName, // or user.name depending on your schema
+        fullName: user.fullName, // (or name, whatever your schema uses)
         email: user.email,
         role: user.role,
-        // 🔴 THIS IS THE FIX: Tell the backend to send the new array to React!
-        familyProfiles: user.familyProfiles 
+        familyProfiles: user.familyProfiles,
+        
+        // NEW: You MUST add this line so the frontend can see the list!
+        safeGroceryList: user.safeGroceryList, 
       });
     } else {
       res.status(404).json({ message: "User not found" });
     }
   } catch (error) {
-    console.error("Fetch Profile Error:", error);
-    res.status(500).json({ message: "Server error while fetching profile." });
+    console.error("Get Profile Error:", error);
+    res.status(500).json({ message: "Failed to fetch profile." });
   }
 };
 
@@ -188,7 +190,7 @@ export const updateUserProfile = async (req, res) => {
   }
 };
 
-// ..........................Family Profiles.................................................
+// ......................... Family Profiles .....................................................
 
 // @desc    Add a new family member to the user's account
 // @route   POST /api/users/family
@@ -252,7 +254,7 @@ export const updateFamilyProfile = async (req, res) => {
     user.familyProfiles[profileIndex].illnesses = req.body.illnesses || [];
     user.familyProfiles[profileIndex].prohibitedFoods = req.body.prohibitedFoods || [];
 
-    // 3. 🔴 CRITICAL: Tell Mongoose the array has been modified so it actually saves!
+    // 3. CRITICAL: Tell Mongoose the array has been modified so it actually saves!
     user.markModified("familyProfiles");
     
     await user.save();
@@ -263,7 +265,7 @@ export const updateFamilyProfile = async (req, res) => {
       familyProfiles: user.familyProfiles 
     });
   } catch (error) {
-    console.error("🔴 Update Profile Error:", error);
+    console.error("Update Profile Error:", error);
     res.status(500).json({ message: "Failed to update profile", error: error.message });
   }
 };
@@ -287,7 +289,7 @@ export const deleteFamilyProfile = async (req, res) => {
       return res.status(404).json({ message: "Family profile not found." });
     }
 
-    // 2. 🔴 CRITICAL: Tell Mongoose the array has been modified!
+    // 2. CRITICAL: Tell Mongoose the array has been modified!
     user.markModified("familyProfiles");
 
     await user.save();
@@ -298,7 +300,67 @@ export const deleteFamilyProfile = async (req, res) => {
       familyProfiles: user.familyProfiles 
     });
   } catch (error) {
-    console.error("🔴 Delete Profile Error:", error);
+    console.error("Delete Profile Error:", error);
     res.status(500).json({ message: "Failed to delete profile", error: error.message });
+  }
+};
+
+// ....................................... Safe Grocery List Section .....................................
+
+// @desc    Add an item to the Safe Grocery List
+// @route   POST /api/users/grocery
+// @access  Private
+export const addToGroceryList = async (req, res) => {
+  try {
+    const { productName, barcode } = req.body;
+    const user = await User.findById(req.user._id);
+    
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Prevent duplicates
+    const alreadyExists = user.safeGroceryList.some(
+      (item) => item.productName.toLowerCase() === productName.toLowerCase()
+    );
+
+    if (alreadyExists) {
+      return res.status(400).json({ message: "This item is already in your grocery list." });
+    }
+
+    user.safeGroceryList.push({ productName, barcode });
+    await user.save();
+
+    res.json({ 
+      success: true, 
+      message: "Added to Safe Grocery List! 🛒",
+      safeGroceryList: user.safeGroceryList 
+    });
+  } catch (error) {
+    console.error("Grocery Add Error:", error);
+    res.status(500).json({ message: "Failed to add item.", error: error.message });
+  }
+};
+
+// @desc    Remove an item from the Safe Grocery List
+// @route   DELETE /api/users/grocery/:itemId
+// @access  Private
+export const removeFromGroceryList = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.safeGroceryList = user.safeGroceryList.filter(
+      (item) => item._id.toString() !== req.params.itemId
+    );
+
+    await user.save();
+
+    res.json({ 
+      success: true, 
+      message: "Item removed.",
+      safeGroceryList: user.safeGroceryList 
+    });
+  } catch (error) {
+    console.error("Grocery Remove Error:", error);
+    res.status(500).json({ message: "Failed to remove item.", error: error.message });
   }
 };

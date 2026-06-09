@@ -25,8 +25,19 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     role: { type: String, default: "user" },
 
-    // 🔴 NEW: The user now has an array of family profiles!
+    // NEW: The user now has an array of family profiles!
     familyProfiles: [profileSchema],
+
+    // NEW: The user now has an array of safe foods list!
+    safeGroceryList: [
+      {
+        productName: { type: String, required: true },
+        barcode: { type: String },
+        // NEW: Save who the food is for!
+        targetProfile: { type: String, default: "everyone" }, 
+        addedAt: { type: Date, default: Date.now }
+      }
+    ]
   },
   { timestamps: true },
 );

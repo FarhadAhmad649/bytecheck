@@ -14,7 +14,7 @@ const ManageDishes = () => {
     try {
       const response = await API.get("/scans/dishes");
 
-      // 🔴 NEW: Sort the dishes alphabetically by dishName
+      // NEW: Sort the dishes alphabetically by dishName
       const sortedDishes = response.data.sort((a, b) => {
         return a.dishName.localeCompare(b.dishName);
       });

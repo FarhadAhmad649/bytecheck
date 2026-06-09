@@ -3,7 +3,7 @@
 export const admin = (req, res, next) => {
   // 1. Check if the user object exists (set by your 'protect' middleware)
   if (!req.user) {
-    console.log("❌ Admin Middleware: No user found.");
+    console.log("Admin Middleware: No user found.");
     return res.status(401).json({ message: "Not authorized, no user found." });
   }
 
@@ -12,7 +12,7 @@ export const admin = (req, res, next) => {
     next(); // Pass control to the controller (deleteDish / updateDish)
   } else {
     console.log(
-      `❌ Admin Middleware: Blocked user ${req.user.email}. Role is '${req.user.role}'`,
+      `Admin Middleware: Blocked user ${req.user.email}. Role is '${req.user.role}'`,
     );
     return res
       .status(403)

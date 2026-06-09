@@ -15,6 +15,7 @@ import AddDish from './pages/AddDish'
 import EditProfile from "./pages/EditProfile";
 import ManageDishes from "./pages/ManageDishes";
 import ManageFamily from "./pages/ManageFamily";
+import SafeGroceryList from "./pages/SafeGroceryList";
 
 function App() {
   return (
@@ -80,10 +81,12 @@ function App() {
 
         {/* 6.  Add the EditProfile as a private route */}
         <Route path="/edit-profile" element={<EditProfile />} />
-      
 
         {/* 7.  Add the family memeber profiles */}
-          <Route path="/manage-family" element={<ManageFamily />} />
+        <Route path="/manage-family" element={<ManageFamily />} />
+
+        {/* 7.  List of safe grocery foods */}
+        <Route path="/grocery-list" element={<SafeGroceryList />} />
       </Routes>
     </AuthProvider>
   );

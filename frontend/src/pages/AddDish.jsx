@@ -8,8 +8,8 @@ const AddDish = () => {
     aliases: "",
     ingredients: "",
     unsuitableForIllnesses: "",
-    containsAllergies: "", // 🔴 NEW
-    dietaryFlags: "", // 🔴 NEW
+    containsAllergies: "", // NEW
+    dietaryFlags: "", // NEW
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -36,8 +36,8 @@ const AddDish = () => {
       unsuitableForIllnesses: parseStringToArray(
         dishData.unsuitableForIllnesses,
       ),
-      containsAllergies: parseStringToArray(dishData.containsAllergies), // 🔴 NEW
-      dietaryFlags: parseStringToArray(dishData.dietaryFlags), // 🔴 NEW
+      containsAllergies: parseStringToArray(dishData.containsAllergies), // NEW
+      dietaryFlags: parseStringToArray(dishData.dietaryFlags), // NEW
     };
 
     try {

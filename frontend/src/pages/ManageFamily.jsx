@@ -120,7 +120,7 @@ const ManageFamily = () => {
             />
           </div>
 
-          {/* 🔴 NEW: Prohibited Foods Input Added Here */}
+          {/* NEW: Prohibited Foods Input Added Here */}
           <div>
             <label className="block text-sm text-slate-400 mb-1">
               Doctor Prohibited Foods (comma separated)

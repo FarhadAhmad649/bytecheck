@@ -36,10 +36,10 @@ const BarcodeScanner = ({ onResult }) => {
     return () => {
       scanner.clear().catch(console.error);
     };
-  }, []); // 🛑 CRITICAL: Empty dependency array! The camera only starts ONCE.
+  }, []); // CRITICAL: Empty dependency array! The camera only starts ONCE.
 
   return (
-    // 🛑 CRITICAL UI FIX: Added bg-white and text-black so the default
+    // CRITICAL UI FIX: Added bg-white and text-black so the default
     // scanner buttons are actually visible in your dark theme!
     <div
       id="reader"

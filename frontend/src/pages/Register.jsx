@@ -172,7 +172,7 @@ const Register = () => {
 
             {/* ───────────────── Medical Fields ───────────────── */}
 
-            {/* 👈 CHANGED: Smart Tags UI for Allergies */}
+            {/* CHANGED: Smart Tags UI for Allergies */}
             <div className="flex flex-col gap-2">
               <label className="text-xs font-semibold tracking-widest uppercase text-slate-400">
                 Standard Allergies

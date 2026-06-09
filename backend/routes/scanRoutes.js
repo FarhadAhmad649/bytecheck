@@ -1,20 +1,33 @@
-import express from 'express';
-import multer from 'multer';
-import { createScan, getUserScans, analyzeImage, getScanHistory, analyzeText, addDishToDictionary, analyzeDish, getSafeAlternatives, getAllDishes, updateDish, deleteDish } from "../controllers/scanController.js";
+import express from "express";
+import multer from "multer";
+import {
+  createScan,
+  getUserScans,
+  getScanHistory,
+  analyzeText,
+  addDishToDictionary,
+  getSafeAlternatives,
+  getAllDishes,
+  updateDish,
+  deleteDish,
+  analyzeSmartScan,
+  analyzeDish
+} from "../controllers/scanController.js";
 import { protect } from "../middleware/authMiddleware.js";
-import { admin } from '../middleware/adminMiddleware.js';
+import { admin } from "../middleware/adminMiddleware.js";
 
 const router = express.Router();
 
-// ... Configure Multer storage settings locally within routes
+// Configure Multer storage settings locally within routes
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
 });
+
 const upload = multer({
   storage: storage,
   limits: {
@@ -22,39 +35,35 @@ const upload = multer({
   },
 });
 
-// ... Both routes are protected.
-// A POST request saves a scan, a GET request fetches the history.
+// Storing and fetching basic user history entries
 router.route("/").post(protect, createScan).get(protect, getUserScans);
-/* ...... WE use the above method due to the principle DRY as    they are the same routes just little difference.....
-// router.post("/", protect, createScan); 
-// router.get("/", protect, getUserScans);
-*/
 
-// ... Image processing endpoint routes to analyze the image
-router.post('/analyze-image', protect, upload.single('labelImage'), analyzeImage);
+// Getting history logs array
+router.get("/history", protect, getScanHistory);
 
-// ... Getting history route
-router.get('/history', protect, getScanHistory)
+// Search for the dish name
+router.post("/analyze-dish", protect, analyzeDish);
 
-// .... Manual text processing endpoint
-router.post('/analyze-text', protect, analyzeText);
+// Manual raw ingredient text processing endpoint
+router.post("/analyze-text", protect, analyzeText);
 
-// .... Menu Dish Dictionary routes
-router.post('/add-dish', protect, admin, addDishToDictionary);
+// SMART SCAN ENDPOINT (Autodetects: Labels, Dishes, and Restaurant Menus)
+// Updated to listen on '/analyze-smart' and parse the 'smartImage' key sent from React
+router.post(
+  "/analyze-smart",
+  protect,
+  upload.single("smartImage"),
+  analyzeSmartScan,
+);
 
-// .... Analyzing the dish route
-router.post('/analyze-dish', protect, analyzeDish);
+// AI ALTERNATIVES ENDPOINT
+// Updated from '/alternatives' to '/ai-alternatives' to perfectly match frontend requests
+router.post("/ai-alternatives", protect, getSafeAlternatives);
 
-// .... Get safe alternative foods list
-router.post("/alternatives", protect, getSafeAlternatives);
-
-// ... Get all the dishes list (Admin only)
+// ─── Menu Dish Dictionary Admin Routes ──────────────────────────────────
+router.post("/add-dish", protect, admin, addDishToDictionary);
 router.get("/dishes", protect, admin, getAllDishes);
-
-// ... Update the dish using PUT
 router.put("/dish/:id", protect, admin, updateDish);
-
-// ... Delete dish from db using DELETE
 router.delete("/dish/:id", protect, admin, deleteDish);
 
 export default router;

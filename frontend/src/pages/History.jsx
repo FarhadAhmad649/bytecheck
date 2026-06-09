@@ -277,10 +277,10 @@ const History = () => {
         <div className="flex items-start justify-between mb-8 sm:mb-10">
           <div>
             <p className="text-[10px] sm:text-xs font-semibold tracking-widest uppercase text-emerald-500 mb-1">
-              Scan History
+              Your Past Scans
             </p>
             <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
-              Your Past Scans
+              Scan History
             </h1>
           </div>
           <button

@@ -117,253 +117,6 @@ export const getUserScans = async (req, res) => {
   }
 };
 
-// @desc    Upload food label image and analyze ingredients
-export const analyzeImage = async (req, res) => {
-  try {
-    if (!req.file) return res.status(400).json({ message: "No image file uploaded" });
-
-    // Catch the Family Target from the Frontend
-    const scanTarget = req.body.scanTarget || "everyone";
-
-    const imagePath = path.join(__dirname, "..", req.file.path);
-    const scriptPath = path.join(__dirname, "..", "ai_service", "ocr_processor.py");
-
-    const pythonProcess = spawn("python", [scriptPath, imagePath]);
-    let pythonData = "";
-
-    pythonProcess.stdout.on("data", (data) => {
-      pythonData += data.toString();
-    });
-    
-    pythonProcess.stderr.on("data", (data) => {
-      console.error("🔴 PYTHON ERROR:", data.toString());
-    });
-
-    pythonProcess.on("close", async (code) => {
-      console.log("\n=== 🔍 OCR DEBUG INFO ===");
-      console.log("Python Exit Code:", code);
-      console.log("Raw Python Output:", pythonData);
-      console.log("=========================\n");
-
-      try {
-        const startIndex = pythonData.indexOf("{");
-        const endIndex = pythonProcess.killed ? pythonData.length : pythonData.lastIndexOf("}") + 1;
-        
-        if (startIndex === -1) {
-            console.error("❌ Failed to find JSON in Python output.");
-            return res.status(500).json({ message: "OCR Engine failed to return readable data." });
-        }
-
-        const cleanJsonString = pythonData.substring(startIndex, endIndex);
-        const parsedResult = JSON.parse(cleanJsonString);
-
-        if (!parsedResult.success) {
-          console.error("❌ Python script reported failure:", parsedResult.error);
-          return res.status(500).json({ message: "OCR failed", error: parsedResult.error });
-        }
-
-        let extractedIngredientsText = "";
-        const rawText = parsedResult.text.trim();
-        const pureNumbersOnly = rawText.replace(/[^0-9]/g, "");
-        const isBarcode = pureNumbersOnly.length >= 8 && pureNumbersOnly.length <= 14;
-
-        if (isBarcode) {
-          const response = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${rawText}.json`);
-          extractedIngredientsText = response.data.product?.ingredients_text?.toLowerCase() || "";
-          if (!extractedIngredientsText) {
-            return res.status(404).json({ message: "Barcode found, but no ingredients available in database." });
-          }
-        } else {
-          extractedIngredientsText = rawText.replace(/['"]/g, "").toLowerCase();
-        }
-
-        if (extractedIngredientsText.length < 2) {
-          console.error("❌ OCR read too few characters. Raw Text was:", rawText);
-          return res.status(400).json({
-            message: "Could not read the text clearly. Please focus the camera or type it manually.",
-          });
-        }
-
-        // Fetch User and Filter Profiles for the Dropdown
-        const user = await User.findById(req.user._id);
-        if (!user) return res.status(404).json({ message: "User not found." });
-
-        let profilesToCheck = user.familyProfiles && user.familyProfiles.length > 0
-          ? user.familyProfiles
-          : [{ name: user.name || "Me", allergies: [], prohibitedFoods: [], illnesses: [], isPrimary: true }];
-
-        if (scanTarget && scanTarget !== "everyone") {
-          const filteredProfiles = profilesToCheck.filter((profile) => profile.name === scanTarget);
-          if (filteredProfiles.length > 0) profilesToCheck = filteredProfiles;
-        }
-
-        let familyResults = [];
-        let overallSeverity = 0;
-        let overallStatus = "Safe";
-
-        // Run the Hazard Loop
-        profilesToCheck.forEach((profile) => {
-          let severityScore = 0;
-          let status = "Safe";
-          let warnings = [];
-          let flaggedIngredients = [];
-
-          const profileAllergies = profile.allergies || [];
-          profileAllergies.forEach((allergy) => {
-            const normalizedAllergy = allergy.toLowerCase();
-            const hiddenNames = allergenMap[normalizedAllergy] || [
-              normalizedAllergy,
-            ];
-            const foundHidden = hiddenNames.find((hidden) =>
-              extractedIngredientsText.includes(hidden.toLowerCase()),
-            );
-
-            if (foundHidden) {
-              severityScore = 100;
-              status = "Avoid";
-              let alertText =
-                foundHidden && foundHidden !== normalizedAllergy
-                  ? `${normalizedAllergy} (found as '${foundHidden}')`
-                  : normalizedAllergy;
-              if (!flaggedIngredients.includes(alertText)) {
-                flaggedIngredients.push(alertText);
-                warnings.push(
-                  `CRITICAL: Contains ${alertText} which you are allergic to.`,
-                );
-              }
-            }
-          });
-
-          // B. Check Prohibited Foods (80% Danger) - UPGRADED WITH CATEGORIES
-          const profileProhibited = profile.prohibitedFoods || [];
-
-          profileProhibited.forEach((item) => {
-            const prohibitedTerm = item.toLowerCase();
-
-            // Check 1: Direct Match (e.g., user explicitly blocked "chicken")
-            if (extractedIngredientsText.includes(prohibitedTerm)) {
-              if (severityScore < 80) severityScore = 80;
-              status = "Avoid";
-
-              if (!flaggedIngredients.includes(item)) {
-                flaggedIngredients.push(item);
-                warnings.push(
-                  `DANGER: Contains doctor-prohibited food: ${item}.`,
-                );
-              }
-            }
-
-            // Check 2: Category Match (e.g., user blocked "oily foods")
-            if (dietaryCategoryMap[prohibitedTerm]) {
-              const hiddenCulprits = dietaryCategoryMap[prohibitedTerm];
-
-              // Look through the label for any of the hidden culprits
-              hiddenCulprits.forEach((culprit) => {
-                if (extractedIngredientsText.includes(culprit)) {
-                  if (severityScore < 80) severityScore = 80;
-                  status = "Avoid";
-
-                  const alertText = `${item} (found as '${culprit}')`;
-                  if (!flaggedIngredients.includes(alertText)) {
-                    flaggedIngredients.push(alertText);
-                    warnings.push(
-                      `DANGER: Contains '${culprit}', which violates your restriction against ${item}.`,
-                    );
-                  }
-                }
-              });
-            }
-          });
-
-          if (severityScore > overallSeverity) {
-            overallSeverity = severityScore;
-            overallStatus = status;
-          }
-
-          familyResults.push({
-            memberName: profile.name,
-            isPrimary: profile.isPrimary,
-            severityScore,
-            status,
-            warnings,
-            flaggedIngredients,
-          });
-        });
-
-        // 🔴 Gather all unique flagged ingredients from the family breakdown
-        let allFlaggedIngredients = [];
-        familyResults.forEach(member => {
-          if (member.flaggedIngredients && member.flaggedIngredients.length > 0) {
-            member.flaggedIngredients.forEach(ing => {
-              if (!allFlaggedIngredients.includes(ing)) {
-                allFlaggedIngredients.push(ing);
-              }
-            });
-          }
-        });
-
-        // Format the target name beautifully
-        let displayTarget = "Whole Family";
-        if (scanTarget && scanTarget !== "everyone") {
-          displayTarget = Array.isArray(scanTarget) ? scanTarget.join(" & ") : scanTarget;
-        }
-
-        const atRiskMembers = familyResults
-          .filter((member) => member.severityScore > 0)
-          .map((member) => {
-            const name = member.isPrimary ? "You" : member.memberName;
-            const reasons = member.flaggedIngredients && member.flaggedIngredients.length > 0 
-              ? `due to ${member.flaggedIngredients.join(", ")}` 
-              : "due to dietary conflicts";
-            return `${name} (${reasons})`;
-          });
-
-        let combinedReason = "";
-        if (overallSeverity === 0) {
-          combinedReason = `Scanned label is perfectly safe for the selected profile(s).`;
-        } else {
-          const riskList = atRiskMembers.join(", "); 
-          combinedReason = `Warning: Scanned label poses a risk to: ${riskList}.`;
-        }
-
-        // 🔴 Save to Scan History (with Target Stamp & Populated Flags)
-        const savedLog = await Scan.create({
-          user: req.user._id,
-          scanType: isBarcode ? "barcode" : "image",
-          // INJECT THE TARGET INTO THE FIRST LINE
-          extractedText: `Target: ${displayTarget}\nLabel Scanned: \n${extractedIngredientsText}`,
-          analysisResult: {
-            status: overallStatus,
-            flaggedIngredients: allFlaggedIngredients, 
-            reason: combinedReason,
-          },
-        });
-
-        res.json({
-          success: true,
-          scanId: savedLog._id,
-          productName: isBarcode ? "Scanned Barcode" : "Scanned Label",
-          status: overallStatus,
-          severityScore: overallSeverity,
-          familyBreakdown: familyResults,
-          extractedText: extractedIngredientsText,
-          reason: combinedReason,
-          timestamp: savedLog.createdAt,
-        });
-
-      } catch (parseError) {
-        console.error("❌ Backend Parsing Error:", parseError);
-        res.status(500).json({
-          message: "Failed to process service response",
-          error: parseError.message,
-        });
-      }
-    });
-  } catch (error) {
-    console.error("❌ Controller Error:", error);
-    res.status(500).json({ message: error.message });
-  }
-};
 
 // @desc    Get logged in user's complete scan history logs
 export const getScanHistory = async (req, res) => {
@@ -384,7 +137,7 @@ export const getScanHistory = async (req, res) => {
 // @desc    Manually check typed ingredients against allergies OR Live Barcode Scan
 export const analyzeText = async (req, res) => {
   try {
-    const { ingredientsText } = req.body;
+    const { ingredientsText, scanTarget } = req.body;
     const numericOnly = ingredientsText.replace(/\D/g, "");
     const isBarcode = numericOnly.length >= 8 && numericOnly.length <= 14;
 
@@ -393,110 +146,130 @@ export const analyzeText = async (req, res) => {
     if (isBarcode) {
       try {
         const response = await axios.get(
-          `https://world.openfoodfacts.org/api/v0/product/${numericOnly}.json`,
+          `https://world.openfoodfacts.org/api/v0/product/${numericOnly}.json`
         );
         if (response.data.status === 0) {
-          return res.status(404).json({
-            message:
-              "Barcode recognized, but this product is not in the global OpenFoodFacts database.",
-          });
+          return res.status(404).json({ message: "Barcode recognized, but this product is not in the database." });
         }
-        textToAnalyze = response.data.product?.ingredients_text?.toLowerCase();
+        textToAnalyze = response.data.product?.ingredients_text?.toLowerCase() || "";
         if (!textToAnalyze || textToAnalyze.trim() === "") {
-          return res.status(404).json({
-            message:
-              "Product found in global database, but ingredient list is missing.",
-          });
+          return res.status(404).json({ message: "Product found, but ingredient list is missing." });
         }
       } catch (apiError) {
-        return res.status(500).json({
-          message: "Failed to connect to the global barcode database.",
-        });
+        return res.status(500).json({ message: "Failed to connect to the global barcode database." });
       }
     } else {
       textToAnalyze = ingredientsText.toLowerCase();
     }
 
     const user = await User.findById(req.user._id);
-    if (!user)
-      return res.status(404).json({ message: "User profile not found." });
+    if (!user) return res.status(404).json({ message: "User profile not found." });
 
-    const userAllergies = user.healthProfile?.allergies || [];
-    const userProhibited = user.healthProfile?.prohibitedFoods || [];
-    let flaggedAllergies = [];
-    let flaggedProhibited = [];
-
-    userAllergies.forEach((allergy) => {
-      if (textToAnalyze.includes(allergy.toLowerCase()))
-        flaggedAllergies.push(allergy);
-    });
-
-    userProhibited.forEach((item) => {
-      if (textToAnalyze.includes(item.toLowerCase()))
-        flaggedProhibited.push(item);
-    });
-
-    // 🔴 FIX: Strictly Safe or Avoid
-    let severityScore = 0;
-    let status = "Safe";
-    let warnings = [];
-
-    if (flaggedAllergies.length > 0) {
-      severityScore = 100;
-      status = "Avoid";
-      warnings.push(
-        `CRITICAL: Contains ${flaggedAllergies.join(", ")} which you are allergic to.`,
-      );
-    } else if (flaggedProhibited.length > 0) {
-      severityScore = 80;
-      status = "Avoid";
-      warnings.push(
-        `DANGER: Contains doctor-prohibited items: ${flaggedProhibited.join(", ")}.`,
-      );
+    // Determine which profiles to check (Family Target Logic)
+    let targetProfiles = [];
+    if (scanTarget && scanTarget !== "everyone") {
+      const specificProfile = user.familyProfiles.find(p => p.name === scanTarget);
+      if (specificProfile) targetProfiles.push(specificProfile);
+    } else {
+      targetProfiles = user.familyProfiles && user.familyProfiles.length > 0
+        ? user.familyProfiles
+        : [{ name: user.name || "Me", allergies: [], prohibitedFoods: [], illnesses: [], isPrimary: true }];
     }
 
-    let flaggedIngredients = [...flaggedAllergies, ...flaggedProhibited];
+    let familyResults = [];
+    let overallSeverity = 0;
+    let overallStatus = "Safe";
+    let allFlaggedIngredients = [];
 
+    // Loop through all selected profiles (Upgraded Hazard Loop)
+    targetProfiles.forEach((profile) => {
+      let severityScore = 0;
+      let status = "Safe";
+      let warnings = [];
+
+      // A. Check Allergies (100% Critical)
+      const profileAllergies = profile.allergies || [];
+      profileAllergies.forEach((allergy) => {
+        const normalizedAllergy = allergy.toLowerCase();
+        const hiddenNames = allergenMap[normalizedAllergy] || [normalizedAllergy];
+        const foundHidden = hiddenNames.find((hidden) => textToAnalyze.includes(hidden.toLowerCase()));
+
+        if (foundHidden) {
+          severityScore = 100;
+          status = "Avoid";
+          let alertText = foundHidden && foundHidden !== normalizedAllergy
+              ? `${normalizedAllergy} (found as '${foundHidden}')` : normalizedAllergy;
+              
+          warnings.push(`CRITICAL: Contains ${alertText} which you are allergic to.`);
+          if (!allFlaggedIngredients.includes(alertText)) allFlaggedIngredients.push(alertText);
+        }
+      });
+
+      // B. Check Prohibited Foods (80% Danger) - Category Checks
+      const profileProhibited = profile.prohibitedFoods || [];
+      profileProhibited.forEach((item) => {
+        const prohibitedTerm = item.toLowerCase();
+
+        // Direct Text Match
+        if (textToAnalyze.includes(prohibitedTerm)) {
+          if (severityScore < 80) severityScore = 80;
+          status = "Avoid";
+          warnings.push(`DANGER: Contains doctor-prohibited food: ${item}.`);
+          if (!allFlaggedIngredients.includes(item)) allFlaggedIngredients.push(item);
+        }
+
+        // Category Match (e.g., user blocked "oily foods")
+        if (dietaryCategoryMap[prohibitedTerm]) {
+          const hiddenCulprits = dietaryCategoryMap[prohibitedTerm];
+          hiddenCulprits.forEach((culprit) => {
+            if (textToAnalyze.includes(culprit)) {
+              if (severityScore < 80) severityScore = 80;
+              status = "Avoid";
+              const alertText = `${item} (found as '${culprit}')`;
+              warnings.push(`DANGER: Contains '${culprit}', which violates restriction against ${item}.`);
+              if (!allFlaggedIngredients.includes(alertText)) allFlaggedIngredients.push(alertText);
+            }
+          });
+        }
+      });
+
+      if (severityScore > overallSeverity) {
+        overallSeverity = severityScore;
+        overallStatus = status;
+      }
+
+      familyResults.push({
+        memberName: profile.name,
+        isPrimary: profile.isPrimary,
+        severityScore,
+        status,
+        warnings,
+      });
+    });
+
+    // Save to Scan History
+    const savedLog = await Scan.create({
+      user: req.user._id,
+      scanType: isBarcode ? "barcode" : "text",
+      extractedText: `Target: ${scanTarget}\nText Checked:\n${textToAnalyze}`,
+      analysisResult: {
+        status: overallStatus,
+        flaggedIngredients: allFlaggedIngredients,
+        reason: overallSeverity === 0 ? "No matching allergens found." : `Contains restricted items.`,
+      },
+    });
+
+    // Send properly formatted response to React!
     res.json({
-      status,
-      severityScore,
-      warnings,
-      reason:
-        severityScore === 0
-          ? "No matching allergens found."
-          : warnings.join(" "),
-      flaggedIngredients,
+      success: true,
+      scanId: savedLog._id,
+      productName: isBarcode ? "Scanned Barcode" : "Typed Ingredients", // This fixes the missing UI title
+      status: overallStatus,
+      severityScore: overallSeverity,
+      familyBreakdown: familyResults, // This makes the cards render
+      extractedText: textToAnalyze,
     });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// @desc    Add a new dish to the dictionary (For testing/admin)
-export const addDishToDictionary = async (req, res) => {
-  try {
-    const {
-      dishName,
-      ingredients,
-      aliases,
-      unsuitableForIllnesses,
-      containsAllergies,
-      dietaryFlags,
-    } = req.body;
-
-    const newDish = await FoodDictionary.create({
-      dishName,
-      aliases,
-      ingredients,
-      unsuitableForIllnesses,
-      containsAllergies,
-      dietaryFlags,
-    });
-
-    res.status(201).json({
-      message: "Dish added to dictionary with medical ontology!",
-      dish: newDish,
-    });
+    
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -597,16 +370,16 @@ export const analyzeDish = async (req, res) => {
         }
       });
 
-      // B. Check Prohibited Foods (80% Danger)
-
-      // B. Check Prohibited Foods (80% Danger) - UPGRADED WITH CATEGORIES
+      // B. Check Prohibited Foods (80% Danger) - UPGRADED WITH CATEGORIES & FLAGS
       const profileProhibited = profile.prohibitedFoods || [];
+      const dishFlags = dish.dietaryFlags || []; // Fetch flags from database
 
       profileProhibited.forEach((item) => {
         const prohibitedTerm = item.toLowerCase();
 
-        // Check 1: Direct Match (e.g., user explicitly blocked "chicken")
-        if (extractedIngredientsText.includes(prohibitedTerm)) {
+        // 1. Direct Text Match (e.g., explicitly blocked "chicken")
+        // FIX: Using ingredientsText here!
+        if (ingredientsText.includes(prohibitedTerm)) {
           if (severityScore < 80) severityScore = 80;
           status = "Avoid";
 
@@ -616,9 +389,28 @@ export const analyzeDish = async (req, res) => {
           }
         }
 
-        // 2. 🔴 NEW: Dietary Flags Match (The Smart Safety Net)
-        // Check if any of the dish's flags conflict with the prohibited item
-        // e.g. If dish has flag "oily", and prohibited item is "oily foods"
+        // 2. Category Match (e.g., user blocked "oily foods")
+        if (dietaryCategoryMap[prohibitedTerm]) {
+          const hiddenCulprits = dietaryCategoryMap[prohibitedTerm];
+
+          hiddenCulprits.forEach((culprit) => {
+            // FIX: Using ingredientsText here too!
+            if (ingredientsText.includes(culprit)) {
+              if (severityScore < 80) severityScore = 80;
+              status = "Avoid";
+
+              const alertText = `${item} (found as '${culprit}')`;
+              if (!flaggedIngredients.includes(alertText)) {
+                flaggedIngredients.push(alertText);
+                warnings.push(
+                  `DANGER: Contains '${culprit}', which violates your restriction against ${item}.`,
+                );
+              }
+            }
+          });
+        }
+
+        // 3. Dietary Flags Match (The Smart Safety Net)
         const hasFlagConflict = dishFlags.some(
           (flag) =>
             prohibitedTerm.includes(flag.toLowerCase()) ||
@@ -692,7 +484,7 @@ export const analyzeDish = async (req, res) => {
       combinedReason = `Warning: ${dishName} poses a risk to: ${riskList}.`;
     }
 
-    // 🔴 NEW: Gather all unique flagged ingredients from the family breakdown
+    // NEW: Gather all unique flagged ingredients from the family breakdown
     let allFlaggedIngredients = [];
     familyResults.forEach(member => {
       if (member.flaggedIngredients && member.flaggedIngredients.length > 0) {
@@ -704,13 +496,13 @@ export const analyzeDish = async (req, res) => {
       }
     });
 
-    // 🔴 NEW: Format the target name beautifully
+    // NEW: Format the target name beautifully
     let displayTarget = "Whole Family";
     if (scanTarget && scanTarget !== "everyone") {
       displayTarget = Array.isArray(scanTarget) ? scanTarget.join(" & ") : scanTarget;
     }
 
-    // 🔴 NEW: Inject Target into extractedText and save flaggedIngredients
+    // NEW: Inject Target into extractedText and save flaggedIngredients
     const savedLog = await Scan.create({
       user: req.user._id,
       scanType: "dish",
@@ -735,7 +527,7 @@ export const analyzeDish = async (req, res) => {
       timestamp: savedLog.createdAt,
     });
   } catch (error) {
-    console.error("🔴 DISH ANALYSIS ERROR:", error.message);
+    console.error("DISH ANALYSIS ERROR:", error.message);
     res.status(500).json({ message: error.message });
   }
 };
@@ -753,46 +545,60 @@ export const getSafeAlternatives = async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found." });
 
     // 🔴 1. Determine whose medical profile we need to send to the AI
-    let allergiesToAvoid = [];
-    let illnessesToAvoid = [];
-    let prohibitedToAvoid = [];
+    // We use Sets to automatically prevent duplicate ingredients/illnesses
+    let allergiesToAvoid = new Set();
+    let illnessesToAvoid = new Set();
+    let prohibitedToAvoid = new Set();
     let targetName = "the user";
 
-    // If a specific family member was selected, use their profile
+    // If a specific family member was selected, use only their profile
     if (targetProfile && targetProfile !== "everyone") {
       const familyMember = user.familyProfiles.find(p => p.name === targetProfile);
       if (familyMember) {
-        allergiesToAvoid = familyMember.allergies || [];
-        illnessesToAvoid = familyMember.illnesses || [];
-        prohibitedToAvoid = familyMember.prohibitedFoods || [];
+        (familyMember.allergies || []).forEach(a => allergiesToAvoid.add(a.toLowerCase()));
+        (familyMember.illnesses || []).forEach(i => illnessesToAvoid.add(i.toLowerCase()));
+        (familyMember.prohibitedFoods || []).forEach(p => prohibitedToAvoid.add(p.toLowerCase()));
         targetName = familyMember.name;
       }
     } else {
-      // Otherwise, default to the primary user's profile
-      allergiesToAvoid = user.healthProfile?.allergies || [];
-      illnessesToAvoid = user.healthProfile?.userIllnesses || [];
-      prohibitedToAvoid = user.healthProfile?.prohibitedFoods || [];
+      // 🔴 THE FIX: Loop through ALL family members to create a Master Restriction List
+      targetName = "the entire family";
+      
+      const profilesToCheck = user.familyProfiles && user.familyProfiles.length > 0 
+        ? user.familyProfiles 
+        : [{ name: user.name || "Me", allergies: [], prohibitedFoods: [], illnesses: [] }];
+
+      profilesToCheck.forEach(profile => {
+        (profile.allergies || []).forEach(a => allergiesToAvoid.add(a.toLowerCase()));
+        (profile.illnesses || []).forEach(i => illnessesToAvoid.add(i.toLowerCase()));
+        (profile.prohibitedFoods || []).forEach(p => prohibitedToAvoid.add(p.toLowerCase()));
+      });
     }
+
+    // Convert Sets back to Arrays for the prompt
+    const finalAllergies = Array.from(allergiesToAvoid);
+    const finalIllnesses = Array.from(illnessesToAvoid);
+    const finalProhibited = Array.from(prohibitedToAvoid);
 
     // 🔴 2. Create a hyper-specific prompt based on who is eating
     const prompt = `You are a world-class culinary allergist. 
       My client wants to eat "${rejectedDish}" but cannot because it is unsafe for ${targetName}.
       
-      Here is ${targetName}'s specific medical profile:
-      - Allergies: ${allergiesToAvoid.join(", ") || "None"}
-      - Illnesses: ${illnessesToAvoid.join(", ") || "None"}
-      - Prohibited Foods: ${prohibitedToAvoid.join(", ") || "None"}
+      Here is the combined strict medical profile for ${targetName}:
+      - Allergies: ${finalAllergies.length > 0 ? finalAllergies.join(", ") : "None"}
+      - Illnesses: ${finalIllnesses.length > 0 ? finalIllnesses.join(", ") : "None"}
+      - Prohibited Foods: ${finalProhibited.length > 0 ? finalProhibited.join(", ") : "None"}
 
       Task: Suggest exactly 3 alternative dishes that are similar to "${rejectedDish}", but are 100% safe.
       
       CRITICAL CONSTRAINTS - YOU MUST OBEY THESE STRICTLY:
-      1. Medical Profile: The alternatives MUST NOT contain any of the recorded allergies or prohibited foods.
+      1. Medical Profile: The alternatives MUST NOT contain ANY of the recorded allergies or prohibited foods listed above.
       2. Strict Halal Compliance: The user follows Islamic dietary laws. You MUST NOT suggest any dish containing alcohol (e.g., wine reductions, beer batter), pork, wild boar, bacon, gelatin of non-halal origin, or any other Haram ingredients.
       3. You MUST return your response as a raw JSON array. No markdown, no extra text.
        
       Format strictly:
       [
-        { "name": "Dish Name", "reason": "Why it is safe..." }
+        { "name": "Dish Name", "reason": "Why it is safe for ${targetName} based on their specific restrictions..." }
       ]`;
 
     const response = await ai.models.generateContent({
@@ -836,6 +642,39 @@ export const analyzeBarcode = async (req, res) => {
   }
 };
 
+
+//.................................................... Dishes and it's maintenance..............
+
+// @desc    Add a new dish to the dictionary (For testing/admin)
+export const addDishToDictionary = async (req, res) => {
+  try {
+    const {
+      dishName,
+      ingredients,
+      aliases,
+      unsuitableForIllnesses,
+      containsAllergies,
+      dietaryFlags,
+    } = req.body;
+
+    const newDish = await FoodDictionary.create({
+      dishName,
+      aliases,
+      ingredients,
+      unsuitableForIllnesses,
+      containsAllergies,
+      dietaryFlags,
+    });
+
+    res.status(201).json({
+      message: "Dish added to dictionary with medical ontology!",
+      dish: newDish,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Get all dishes for Admin Dashboard
 // @route   GET /api/scans/dishes
 // @access  Private
@@ -853,7 +692,7 @@ export const getAllDishes = async (req, res) => {
 // @access  Private
 export const updateDish = async (req, res) => {
   try {
-    const cleanId = req.params.id.trim(); // 🔴 Clean the ID first
+    const cleanId = req.params.id.trim(); //  Clean the ID first
 
     const {
       dishName,
@@ -905,7 +744,293 @@ export const deleteDish = async (req, res) => {
 
     res.json({ message: "Dish deleted successfully" });
   } catch (error) {
-    console.error("❌ Delete Error:", error.message);
+    console.error("Delete Error:", error.message);
     res.status(500).json({ message: `BACKEND CRASH: ${error.message}` });
+  }
+};
+
+//............................................... Analyzing Menu Card .......................
+
+// @desc    Smart Scan: Automatically detect if image is a Label, Menu, or Single Dish
+// @route   POST /api/scans/analyze-smart
+// @access  Private
+export const analyzeSmartScan = async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: "No image uploaded" });
+
+    const scanTarget = req.body.scanTarget || "everyone";
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: "User not found." });
+
+    // Determine target profiles
+    let targetProfiles = [];
+    if (scanTarget === "everyone") {
+      targetProfiles = user.familyProfiles && user.familyProfiles.length > 0
+        ? user.familyProfiles
+        : [{ name: user.name || "Me", allergies: [], prohibitedFoods: [], illnesses: [], isPrimary: true }];
+    } else {
+      const specificProfile = user.familyProfiles.find(p => p.name === scanTarget);
+      if (specificProfile) targetProfiles.push(specificProfile);
+    }
+
+    // 1. RUN PYTHON OCR
+    const imagePath = path.join(__dirname, "..", req.file.path);
+    const scriptPath = path.join(__dirname, "..", "ai_service", "ocr_processor.py");
+
+    const pythonProcess = spawn("python", [scriptPath, imagePath]);
+    let pythonData = "";
+
+    pythonProcess.stdout.on("data", (data) => { pythonData += data.toString(); });
+    pythonProcess.stderr.on("data", (data) => { console.error("PYTHON ERROR:", data.toString()); });
+
+    pythonProcess.on("close", async (code) => {
+      try {
+        const startIndex = pythonData.indexOf("{");
+        const endIndex = pythonProcess.killed ? pythonData.length : pythonData.lastIndexOf("}") + 1;
+        
+        if (startIndex === -1) return res.status(500).json({ message: "OCR Engine failed to read text." });
+
+        const parsedResult = JSON.parse(pythonData.substring(startIndex, endIndex));
+        if (!parsedResult.success) return res.status(500).json({ message: "OCR failed", error: parsedResult.error });
+
+        const rawText = parsedResult.text.trim();
+        const pureNumbersOnly = rawText.replace(/[^0-9]/g, "");
+        const isBarcode = pureNumbersOnly.length >= 8 && pureNumbersOnly.length <= 14;
+        
+        const dictionary = await FoodDictionary.find();
+        let detectedType = "label"; // Default fallback
+        let menuLines = [];
+        let matchedDishes = [];
+        let extractedIngredientsText = rawText.toLowerCase();
+
+        // 2. INTELLIGENT ROUTING
+        if (isBarcode) {
+          detectedType = "label";
+          const response = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${pureNumbersOnly}.json`);
+          extractedIngredientsText = response.data.product?.ingredients_text?.toLowerCase() || "";
+          if (!extractedIngredientsText) return res.status(404).json({ message: "Barcode found, but no ingredients available in database." });
+        } else {
+          menuLines = rawText.split("\n").map(line => line.trim().toLowerCase()).filter(line => line.length > 2);
+          
+          menuLines.forEach((line) => {
+            const matched = dictionary.find((d) => 
+              line.includes(d.dishName.toLowerCase()) || 
+              (d.aliases && d.aliases.some((alias) => line.includes(alias.toLowerCase())))
+            );
+            if (matched && !matchedDishes.some(md => md._id.toString() === matched._id.toString())) {
+              matchedDishes.push(matched);
+            }
+          });
+
+          // FIXED HEURISTIC: Prevent Mobile Menus from defaulting to Labels!
+          if (extractedIngredientsText.includes("ingredients") || extractedIngredientsText.includes("contains:")) {
+            detectedType = "label";
+          } else if (matchedDishes.length > 1) {
+            detectedType = "menu";
+          } else if (matchedDishes.length === 1) {
+            detectedType = "dish";
+          } else if (menuLines.length > 3) {
+            // If it has many lines of text but missed the DB, it is a blurry Menu, NOT a label!
+            detectedType = "menu"; 
+          }
+        }
+
+        // 3. EXECUTE LOGIC BASED ON DETECTED TYPE
+        if (detectedType === "menu") {
+          // --- MENU LOGIC ---
+          let menuResults = [];
+          let allMenuFlags = []; // For history
+          
+          matchedDishes.forEach((matchedDish) => {
+            let highestSeverity = 0;
+            let finalStatus = "Safe";
+            let dishFamilyBreakdown = [];
+
+            targetProfiles.forEach((profile) => {
+              let severityScore = 0;
+              let warnings = [];
+              let profileStatus = "Safe";
+
+              (profile.allergies || []).forEach((allergy) => {
+                if ((matchedDish.containsAllergies || []).some(da => da.toLowerCase().includes(allergy.toLowerCase()))) {
+                  severityScore = 100; warnings.push(`CRITICAL: Contains ${allergy}`);
+                  if (!allMenuFlags.includes(allergy)) allMenuFlags.push(allergy);
+                }
+              });
+
+              (profile.prohibitedFoods || []).forEach((prohibited) => {
+                if ((matchedDish.dietaryFlags || []).some(flag => flag.toLowerCase().includes(prohibited.toLowerCase()) || prohibited.toLowerCase().includes(flag.toLowerCase()))) {
+                  if (severityScore < 80) severityScore = 80; warnings.push(`DANGER: Flagged for ${prohibited}`);
+                  if (!allMenuFlags.includes(prohibited)) allMenuFlags.push(prohibited);
+                }
+              });
+
+              (profile.illnesses || []).forEach((illness) => {
+                if ((matchedDish.unsuitableForIllnesses || []).some(bad => bad.toLowerCase() === illness.toLowerCase())) {
+                  if (severityScore < 60) severityScore = 60; warnings.push(`CAUTION: Unsuitable for ${illness}`);
+                }
+              });
+
+              if (severityScore === 100 || severityScore === 80) profileStatus = "Avoid";
+              else if (severityScore >= 60) profileStatus = "Caution";
+              if (severityScore > highestSeverity) highestSeverity = severityScore;
+
+              dishFamilyBreakdown.push({ memberName: profile.name, isPrimary: profile.isPrimary, severityScore, status: profileStatus, warnings });
+            });
+
+            if (highestSeverity === 100 || highestSeverity === 80) finalStatus = "Avoid";
+            else if (highestSeverity >= 60) finalStatus = "Caution";
+
+            menuResults.push({ dishName: matchedDish.dishName, status: finalStatus, severityScore: highestSeverity, familyBreakdown: dishFamilyBreakdown });
+          });
+
+          // NEW: SAVE MENU SCAN TO MONGODB HISTORY
+          let overallMenuStatus = "Safe";
+          if (menuResults.some(m => m.status === "Avoid")) overallMenuStatus = "Avoid";
+          else if (menuResults.some(m => m.status === "Caution")) overallMenuStatus = "Caution";
+
+          await Scan.create({
+            user: req.user._id,
+            scanType: "menu",
+            extractedText: `Target: ${scanTarget}\nMenu Scanned. ${matchedDishes.length} recognizable dishes found.`,
+            analysisResult: {
+                status: overallMenuStatus,
+                flaggedIngredients: allMenuFlags,
+                reason: `Analyzed menu against ${scanTarget} profiles.`
+            }
+          });
+
+          return res.json({ success: true, scanType: "menu", menuResults });
+
+        } else if (detectedType === "dish") {
+          // --- SINGLE DISH LOGIC ---
+          const dish = matchedDishes[0];
+          let highestSeverity = 0;
+          let finalStatus = "Safe";
+          let dishFamilyBreakdown = [];
+          let allDishFlags = [];
+
+          targetProfiles.forEach((profile) => {
+              let severityScore = 0;
+              let warnings = [];
+              let profileStatus = "Safe";
+
+              (profile.allergies || []).forEach((allergy) => {
+                if ((dish.containsAllergies || []).some(da => da.toLowerCase().includes(allergy.toLowerCase()))) {
+                  severityScore = 100; warnings.push(`CRITICAL: Contains ${allergy}`);
+                  if (!allDishFlags.includes(allergy)) allDishFlags.push(allergy);
+                }
+              });
+
+              (profile.prohibitedFoods || []).forEach((prohibited) => {
+                if ((dish.dietaryFlags || []).some(flag => flag.toLowerCase().includes(prohibited.toLowerCase()) || prohibited.toLowerCase().includes(flag.toLowerCase()))) {
+                  if (severityScore < 80) severityScore = 80; warnings.push(`DANGER: Flagged for ${prohibited}`);
+                  if (!allDishFlags.includes(prohibited)) allDishFlags.push(prohibited);
+                }
+              });
+
+              (profile.illnesses || []).forEach((illness) => {
+                if ((dish.unsuitableForIllnesses || []).some(bad => bad.toLowerCase() === illness.toLowerCase())) {
+                  if (severityScore < 60) severityScore = 60; warnings.push(`CAUTION: Unsuitable for ${illness}`);
+                }
+              });
+
+              if (severityScore === 100 || severityScore === 80) profileStatus = "Avoid";
+              else if (severityScore >= 60) profileStatus = "Caution";
+              if (severityScore > highestSeverity) highestSeverity = severityScore;
+
+              dishFamilyBreakdown.push({ memberName: profile.name, isPrimary: profile.isPrimary, severityScore, status: profileStatus, warnings });
+          });
+
+          if (highestSeverity === 100 || highestSeverity === 80) finalStatus = "Avoid";
+          else if (highestSeverity >= 60) finalStatus = "Caution";
+
+          // NEW: SAVE DISH SCAN TO MONGODB HISTORY
+          await Scan.create({
+            user: req.user._id,
+            scanType: "dish",
+            extractedText: `Target: ${scanTarget}\nDish Checked: ${dish.dishName}`,
+            analysisResult: {
+                status: finalStatus,
+                flaggedIngredients: allDishFlags,
+                reason: `Analyzed single dish against ${scanTarget} profiles.`
+            }
+          });
+
+          return res.json({ 
+            success: true, 
+            scanType: "dish", 
+            dishName: dish.dishName, 
+            status: finalStatus, 
+            severityScore: highestSeverity, 
+            familyBreakdown: dishFamilyBreakdown 
+          });
+
+        } else {
+          // --- LABEL / INGREDIENT LOGIC ---
+          let familyResults = [];
+          let overallSeverity = 0;
+          let overallStatus = "Safe";
+          let allLabelFlags = [];
+
+          targetProfiles.forEach((profile) => {
+            let severityScore = 0;
+            let status = "Safe";
+            let warnings = [];
+
+            (profile.allergies || []).forEach((allergy) => {
+              const hiddenNames = allergenMap[allergy.toLowerCase()] || [allergy.toLowerCase()];
+              const foundHidden = hiddenNames.find((hidden) => extractedIngredientsText.includes(hidden.toLowerCase()));
+              if (foundHidden) {
+                severityScore = 100; status = "Avoid"; warnings.push(`CRITICAL: Contains ${allergy} (found as '${foundHidden}')`);
+                if (!allLabelFlags.includes(allergy)) allLabelFlags.push(allergy);
+              }
+            });
+
+            (profile.prohibitedFoods || []).forEach((item) => {
+              if (extractedIngredientsText.includes(item.toLowerCase())) {
+                if (severityScore < 80) severityScore = 80; status = "Avoid"; warnings.push(`DANGER: Contains doctor-prohibited food: ${item}`);
+                if (!allLabelFlags.includes(item)) allLabelFlags.push(item);
+              }
+            });
+
+            if (severityScore > overallSeverity) {
+              overallSeverity = severityScore;
+              overallStatus = status;
+            }
+
+            familyResults.push({ memberName: profile.name, isPrimary: profile.isPrimary, severityScore, status, warnings });
+          });
+
+          // RETAINED: SAVE LABEL SCAN TO MONGODB HISTORY
+          await Scan.create({
+            user: req.user._id,
+            scanType: isBarcode ? "barcode" : "label",
+            extractedText: `Target: ${scanTarget}\nLabel Text:\n${extractedIngredientsText.substring(0, 100)}...`,
+            analysisResult: {
+              status: overallStatus,
+              flaggedIngredients: allLabelFlags,
+              reason: overallSeverity === 0 ? "No matching allergens found." : `Contains restricted items.`
+            }
+          });
+
+          return res.json({
+            success: true,
+            scanType: "label",
+            productName: isBarcode ? "Scanned Barcode" : "Scanned Label",
+            status: overallStatus,
+            severityScore: overallSeverity,
+            familyBreakdown: familyResults,
+            extractedText: extractedIngredientsText,
+          });
+        }
+      } catch (parseError) {
+        console.error("Backend Parsing Error:", parseError);
+        res.status(500).json({ message: "Failed to process service response", error: parseError.message });
+      }
+    });
+  } catch (error) {
+    console.error("Controller Error:", error);
+    res.status(500).json({ message: error.message });
   }
 };
