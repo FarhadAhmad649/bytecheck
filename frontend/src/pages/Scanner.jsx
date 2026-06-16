@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 import imageCompression from "browser-image-compression";
 import Cropper from "react-easy-crop";
-import BarcodeScanner from "./BarcodeScanner";
+import BarcodeScanner from './BarCodeScanner'
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
 import BottomNav from "../components/BottomNav"; // 🔴 Uses our new clean navigation!
