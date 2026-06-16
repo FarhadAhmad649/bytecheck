@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema(
     },
     password: { type: String, required: true },
     role: { type: String, default: "user" },
+    profileImage: { type: String, default: "" },
 
     // NEW: The user now has an array of family profiles!
     familyProfiles: [profileSchema],
@@ -33,11 +34,12 @@ const userSchema = new mongoose.Schema(
       {
         productName: { type: String, required: true },
         barcode: { type: String },
+        profileImage: { type: String, default: "" },
         // NEW: Save who the food is for!
-        targetProfile: { type: String, default: "everyone" }, 
-        addedAt: { type: Date, default: Date.now }
-      }
-    ]
+        targetProfile: { type: String, default: "everyone" },
+        addedAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   { timestamps: true },
 );

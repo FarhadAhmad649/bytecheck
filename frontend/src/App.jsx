@@ -16,6 +16,8 @@ import EditProfile from "./pages/EditProfile";
 import ManageDishes from "./pages/ManageDishes";
 import ManageFamily from "./pages/ManageFamily";
 import SafeGroceryList from "./pages/SafeGroceryList";
+import MyProfile from "./components/MyProfile";
+import Guide from "./pages/Guide";
 
 function App() {
   return (
@@ -87,6 +89,10 @@ function App() {
 
         {/* 7.  List of safe grocery foods */}
         <Route path="/grocery-list" element={<SafeGroceryList />} />
+
+        <Route path="/profile" element={<MyProfile />} />
+
+        <Route path="/guide" element={<Guide />} />
       </Routes>
     </AuthProvider>
   );

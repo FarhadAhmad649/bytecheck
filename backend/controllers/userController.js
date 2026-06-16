@@ -123,6 +123,7 @@ export const getUserProfile = async (req, res) => {
         email: user.email,
         role: user.role,
         familyProfiles: user.familyProfiles,
+        profileImage: user.profileImage,
         
         // NEW: You MUST add this line so the frontend can see the list!
         safeGroceryList: user.safeGroceryList, 
@@ -148,6 +149,7 @@ export const updateUserProfile = async (req, res) => {
       illnesses,
       dietaryPreferences,
       healthProfile,
+      profileImage, // 🔴 NEW: Destructure the image from the frontend request
     } = req.body;
 
     const finalAllergies = healthProfile?.allergies || allergies;
@@ -160,6 +162,9 @@ export const updateUserProfile = async (req, res) => {
 
     // Update main user name
     if (fullName) user.fullName = fullName;
+    
+    // 🔴 NEW: Save the Base64 Image string to the database
+    if (profileImage !== undefined) user.profileImage = profileImage; 
 
     // Update the Primary Profile (Index 0 in the array)
     if (user.familyProfiles && user.familyProfiles.length > 0) {
@@ -182,6 +187,7 @@ export const updateUserProfile = async (req, res) => {
         fullName: updatedUser.fullName,
         email: updatedUser.email,
         role: updatedUser.role,
+        profileImage: updatedUser.profileImage, // 🔴 NEW: Send the updated image back
         familyProfiles: updatedUser.familyProfiles
       }
     });

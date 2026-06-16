@@ -642,6 +642,27 @@ export const analyzeBarcode = async (req, res) => {
   }
 };
 
+// @desc    Delete a specific scan record
+// @route   DELETE /api/scans/:id
+// @access  Private
+export const deleteScan = async (req, res) => {
+  try {
+    const scan = await Scan.findById(req.params.id);
+    
+    if (!scan) return res.status(404).json({ message: "Scan not found" });
+    
+    // Ensure the user owns this scan
+    if (scan.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    await scan.deleteOne();
+    res.json({ message: "Scan record removed" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 //.................................................... Dishes and it's maintenance..............
 

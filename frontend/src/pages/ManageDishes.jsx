@@ -10,15 +10,42 @@ const ManageDishes = () => {
   const [editingDish, setEditingDish] = useState(null);
   const navigate = useNavigate();
 
+  // 🔴 Theme State
+  const isDark = localStorage.getItem("theme") === "dark";
+
+  // 🔴 Dynamic Styling Classes Based on Theme
+  const theme = {
+    bgApp: isDark ? "bg-black" : "bg-gray-900",
+    bgContainer: isDark ? "bg-slate-950" : "bg-[#F8F9FA]",
+    card: isDark
+      ? "bg-slate-900 border-slate-800"
+      : "bg-white border-gray-200 shadow-sm",
+    textMain: isDark ? "text-white" : "text-gray-900",
+    textSub: isDark ? "text-slate-400" : "text-gray-600",
+    inputBg: isDark
+      ? "bg-slate-950/50 border-slate-700 text-white placeholder-slate-500"
+      : "bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400 focus:bg-white",
+    btnBack: isDark
+      ? "bg-slate-800 text-slate-300 hover:bg-slate-700"
+      : "bg-gray-200 text-gray-800 hover:bg-gray-300",
+    divider: isDark ? "border-slate-800" : "border-gray-200",
+    tableHeader: isDark
+      ? "bg-slate-900 border-slate-800 text-slate-400"
+      : "bg-gray-100 border-gray-200 text-gray-600",
+    tableRow: isDark
+      ? "hover:bg-slate-800/40 border-slate-800/50 text-slate-300"
+      : "hover:bg-gray-50 border-gray-100 text-gray-700",
+    modalBg: isDark
+      ? "bg-slate-900 border-slate-700"
+      : "bg-white border-gray-100",
+  };
+
   const fetchDishes = async () => {
     try {
       const response = await API.get("/scans/dishes");
-
-      // NEW: Sort the dishes alphabetically by dishName
       const sortedDishes = response.data.sort((a, b) => {
         return a.dishName.localeCompare(b.dishName);
       });
-
       setDishes(sortedDishes);
     } catch (err) {
       console.error("Failed to fetch dishes:", err);
@@ -40,10 +67,8 @@ const ManageDishes = () => {
         toast.success("Dish deleted successfully! 🗑️");
       } catch (err) {
         const errorMessage =
-          err.response?.data?.message ||
-          "Failed to delete dish. Check server logs.";
+          err.response?.data?.message || "Failed to delete dish.";
         toast.error(`Error: ${errorMessage}`);
-        console.error("Delete error:", err);
       }
     }
   };
@@ -80,168 +105,219 @@ const ManageDishes = () => {
       const errorMessage =
         err.response?.data?.message || "Failed to update dish.";
       toast.error(`Error: ${errorMessage}`);
-      console.error("Update error:", err);
     }
   };
 
-  if (loading)
+  if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-4 border-slate-800 border-t-indigo-500 animate-spin" />
+      <div
+        className={`min-h-screen ${theme.bgApp} flex justify-center font-sans`}
+      >
+        <div
+          className={`w-full max-w-md ${theme.bgContainer} min-h-screen flex flex-col items-center justify-center gap-4 sm:rounded-3xl sm:my-4`}
+        >
+          <div className="w-10 h-10 rounded-full border-4 border-gray-200 border-t-emerald-600 animate-spin" />
+        </div>
       </div>
     );
+  }
 
   return (
-    <div className="min-h-screen bg-slate-950 p-3 sm:p-6 text-slate-100 font-sans">
-      <div className="max-w-6xl mx-auto bg-slate-900 p-4 sm:p-8 rounded-2xl border border-slate-800 shadow-xl">
-        {/* Header Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+    <div
+      className={`min-h-screen ${theme.bgApp} flex justify-center font-sans`}
+    >
+      <div
+        className={`w-full max-w-md ${theme.bgContainer} min-h-screen relative overflow-x-hidden pb-20 shadow-2xl sm:rounded-3xl sm:my-4 sm:h-[95vh] sm:overflow-y-auto custom-scrollbar transition-colors duration-300`}
+      >
+        {/* ── Header ── */}
+        <div
+          className={`px-6 pt-10 pb-6 flex justify-between items-center bg-white/5 backdrop-blur-md sticky top-0 z-10 border-b ${theme.divider}`}
+        >
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <span className="text-[10px] font-black tracking-widest uppercase text-indigo-500 block mb-0.5">
+              Admin Database
+            </span>
+            <h1
+              className={`text-xl font-extrabold ${theme.textMain} tracking-tight`}
+            >
               Food Dictionary
-            </h2>
-            <p className="text-xs text-slate-500 mt-1">
-              Manage database entries, aliases, and dietary flags.
-            </p>
+            </h1>
           </div>
           <button
             onClick={() => navigate("/dashboard")}
-            className="w-full sm:w-auto px-4 py-2 sm:py-2.5 bg-slate-800 text-xs sm:text-sm font-semibold rounded-lg hover:bg-slate-700 transition-colors shadow-sm shrink-0"
+            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95 flex items-center gap-1 ${theme.btnBack}`}
           >
-            ← Back to Dashboard
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back
           </button>
         </div>
 
-        {/* Table Container with Horizontal Scrolling */}
-        <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/20 custom-scrollbar shadow-inner">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-slate-900 border-b border-slate-800 text-slate-400 text-[10px] sm:text-xs uppercase tracking-wider">
-                <th className="px-3 py-3 font-semibold min-w-[40px] text-center">
-                  #
-                </th>
-                <th className="px-3 py-3 font-semibold min-w-[140px]">
-                  Dish Name
-                </th>
-                <th className="px-3 py-3 font-semibold min-w-[140px]">
-                  Aliases
-                </th>
-                <th className="px-3 py-3 font-semibold min-w-[140px]">
-                  Allergies
-                </th>
-                <th className="px-3 py-3 font-semibold min-w-[140px]">
-                  Illness Flags
-                </th>
-                <th className="px-3 py-3 font-semibold min-w-[140px] text-blue-400">
-                  Dietary Flags
-                </th>
-                <th className="px-3 py-3 font-semibold min-w-[120px] text-right">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-800/50">
-              {dishes.map((dish, index) => (
+        {/* ── Table Container ── */}
+        <div className="px-6 mt-6">
+          <p className={`${theme.textSub} text-sm mb-4 font-medium`}>
+            Manage database entries, aliases, and medical dietary flags. Swipe
+            horizontally to view all columns.
+          </p>
+
+          <div
+            className={`overflow-x-auto rounded-2xl border ${theme.card} custom-scrollbar`}
+          >
+            <table className="w-full text-left border-collapse">
+              <thead>
                 <tr
-                  key={dish._id}
-                  className="hover:bg-slate-800/40 transition-colors group"
+                  className={`${theme.tableHeader} text-[10px] uppercase tracking-wider`}
                 >
-                  <td className="px-3 py-3 text-[10px] sm:text-xs text-slate-600 font-mono text-center">
-                    {index + 1}
-                  </td>
-                  <td className="px-3 py-3 text-xs sm:text-sm font-semibold text-slate-200 capitalize whitespace-normal">
-                    {dish.dishName}
-                  </td>
-                  <td className="px-3 py-3 text-[10px] sm:text-xs text-slate-400 font-medium capitalize whitespace-normal leading-relaxed">
-                    {dish.aliases?.join(", ") || (
-                      <span className="text-slate-600">None</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-3 text-[10px] sm:text-xs text-red-400/90 font-medium whitespace-normal leading-relaxed">
-                    {dish.containsAllergies?.join(", ") || (
-                      <span className="text-slate-600">None</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-3 text-[10px] sm:text-xs text-yellow-400/90 font-medium whitespace-normal leading-relaxed">
-                    {dish.unsuitableForIllnesses?.join(", ") || (
-                      <span className="text-slate-600">None</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-3 text-[10px] sm:text-xs text-blue-400/90 font-medium whitespace-normal leading-relaxed capitalize">
-                    {dish.dietaryFlags?.join(", ") || (
-                      <span className="text-slate-600">None</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-3 text-right flex justify-end gap-3 pt-4">
-                    <button
-                      onClick={() =>
-                        setEditingDish({
-                          ...dish,
-                          aliases: arrayToString(dish.aliases),
-                          ingredients: arrayToString(dish.ingredients),
-                          unsuitableForIllnesses: arrayToString(
-                            dish.unsuitableForIllnesses,
-                          ),
-                          containsAllergies: arrayToString(
-                            dish.containsAllergies,
-                          ),
-                          dietaryFlags: arrayToString(dish.dietaryFlags),
-                        })
-                      }
-                      className="text-[11px] sm:text-xs text-indigo-400 hover:text-indigo-300 font-bold transition-colors uppercase tracking-wide border border-white px-1 py-1"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(dish._id)}
-                      className="text-[11px] sm:text-xs text-red-500 hover:text-red-400 font-bold transition-colors uppercase tracking-wide border border-white px-1 py-1"
-                    >
-                      Delete
-                    </button>
-                  </td>
+                  <th className="px-4 py-4 font-bold min-w-[40px] text-center">
+                    #
+                  </th>
+                  <th className="px-4 py-4 font-bold min-w-[140px]">
+                    Dish Name
+                  </th>
+                  <th className="px-4 py-4 font-bold min-w-[140px]">Aliases</th>
+                  <th className="px-4 py-4 font-bold min-w-[140px] text-red-500">
+                    Allergies
+                  </th>
+                  <th className="px-4 py-4 font-bold min-w-[140px] text-yellow-500">
+                    Illness Flags
+                  </th>
+                  <th className="px-4 py-4 font-bold min-w-[140px] text-indigo-500">
+                    Dietary Flags
+                  </th>
+                  <th className="px-4 py-4 font-bold min-w-[120px] text-right">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-              {dishes.length === 0 && (
-                <tr>
-                  <td
-                    colSpan="7"
-                    className="p-8 text-center text-xs text-slate-500"
+              </thead>
+              <tbody className={`divide-y ${theme.divider}`}>
+                {dishes.map((dish, index) => (
+                  <tr
+                    key={dish._id}
+                    className={`${theme.tableRow} transition-colors group`}
                   >
-                    No dishes found in the database.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                    <td
+                      className={`px-4 py-4 text-[10px] sm:text-xs font-mono text-center ${theme.textSub}`}
+                    >
+                      {index + 1}
+                    </td>
+                    <td
+                      className={`px-4 py-4 text-xs sm:text-sm font-bold capitalize whitespace-normal ${theme.textMain}`}
+                    >
+                      {dish.dishName}
+                    </td>
+                    <td
+                      className={`px-4 py-4 text-[10px] sm:text-xs font-medium capitalize whitespace-normal leading-relaxed ${theme.textSub}`}
+                    >
+                      {dish.aliases?.join(", ") || (
+                        <span className="opacity-50">None</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4 text-[10px] sm:text-xs text-red-500 font-medium whitespace-normal leading-relaxed">
+                      {dish.containsAllergies?.join(", ") || (
+                        <span className="opacity-50">None</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4 text-[10px] sm:text-xs text-yellow-500 font-medium whitespace-normal leading-relaxed">
+                      {dish.unsuitableForIllnesses?.join(", ") || (
+                        <span className="opacity-50">None</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4 text-[10px] sm:text-xs text-indigo-500 font-medium whitespace-normal leading-relaxed capitalize">
+                      {dish.dietaryFlags?.join(", ") || (
+                        <span className="opacity-50">None</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4 text-right flex justify-end gap-2 pt-5">
+                      <button
+                        onClick={() =>
+                          setEditingDish({
+                            ...dish,
+                            aliases: arrayToString(dish.aliases),
+                            ingredients: arrayToString(dish.ingredients),
+                            unsuitableForIllnesses: arrayToString(
+                              dish.unsuitableForIllnesses,
+                            ),
+                            containsAllergies: arrayToString(
+                              dish.containsAllergies,
+                            ),
+                            dietaryFlags: arrayToString(dish.dietaryFlags),
+                          })
+                        }
+                        className="text-[10px] sm:text-xs text-indigo-500 hover:text-indigo-600 bg-indigo-500/10 px-3 py-1.5 rounded-lg font-bold transition-colors uppercase tracking-wide"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(dish._id)}
+                        className="text-[10px] sm:text-xs text-red-500 hover:text-red-600 bg-red-500/10 px-3 py-1.5 rounded-lg font-bold transition-colors uppercase tracking-wide"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {dishes.length === 0 && (
+                  <tr>
+                    <td
+                      colSpan="7"
+                      className={`p-8 text-center text-sm font-medium ${theme.textSub}`}
+                    >
+                      No dishes found in the dictionary database.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        {/* Edit Dish Modal */}
+        {/* ── Edit Dish Modal ── */}
         {editingDish && (
-          <div className="fixed inset-0 bg-slate-950/90 flex items-center justify-center p-3 z-50 backdrop-blur-sm">
-            <div className="bg-slate-900 border border-slate-700 p-5 sm:p-6 rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl shadow-black">
-              <div className="mb-5 pb-3 border-b border-slate-800 flex justify-between items-center">
-                <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+          <div className="fixed inset-0 bg-gray-900/60 dark:bg-black/80 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+            <div
+              className={`${theme.modalBg} p-6 rounded-[32px] max-w-md w-full max-h-[85vh] overflow-y-auto shadow-2xl custom-scrollbar border`}
+            >
+              <div
+                className={`mb-6 pb-4 border-b flex justify-between items-center ${theme.divider}`}
+              >
+                <h3
+                  className={`text-xl font-extrabold tracking-tight ${theme.textMain}`}
+                >
                   Edit{" "}
-                  <span className="text-indigo-400 capitalize">
+                  <span className="text-indigo-500 capitalize">
                     {editingDish.dishName}
                   </span>
                 </h3>
                 <button
                   onClick={() => setEditingDish(null)}
-                  className="text-slate-500 hover:text-slate-300 text-xl font-bold"
+                  className={`w-8 h-8 flex items-center justify-center rounded-full font-bold transition-colors ${theme.btnBack}`}
                 >
-                  ×
+                  ✕
                 </button>
               </div>
 
               <form onSubmit={handleUpdate} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                    <label
+                      className={`block text-[10px] font-bold uppercase tracking-widest ${theme.textSub} mb-1.5`}
+                    >
                       Dish Name
                     </label>
                     <input
-                      className="w-full bg-slate-950/50 p-2.5 sm:p-3 text-xs sm:text-sm rounded-lg border border-slate-700 focus:border-indigo-500 outline-none transition-colors text-white"
+                      className={`w-full p-4 text-sm font-medium rounded-2xl border outline-none transition-all focus:ring-2 focus:ring-indigo-500/50 ${theme.inputBg}`}
                       value={editingDish.dishName}
                       onChange={(e) =>
                         setEditingDish({
@@ -253,14 +329,16 @@ const ManageDishes = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                    <label
+                      className={`block text-[10px] font-bold uppercase tracking-widest ${theme.textSub} mb-1.5`}
+                    >
                       Aliases{" "}
-                      <span className="normal-case tracking-normal font-normal opacity-70">
-                        (comma separated)
+                      <span className="normal-case opacity-70 tracking-normal">
+                        (csv)
                       </span>
                     </label>
                     <input
-                      className="w-full bg-slate-950/50 p-2.5 sm:p-3 text-xs sm:text-sm rounded-lg border border-slate-700 focus:border-indigo-500 outline-none transition-colors text-slate-300"
+                      className={`w-full p-4 text-sm font-medium rounded-2xl border outline-none transition-all focus:ring-2 focus:ring-indigo-500/50 ${theme.inputBg}`}
                       value={editingDish.aliases}
                       placeholder="e.g. Biryani, Pilaf"
                       onChange={(e) =>
@@ -274,15 +352,17 @@ const ManageDishes = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                  <label
+                    className={`block text-[10px] font-bold uppercase tracking-widest ${theme.textSub} mb-1.5`}
+                  >
                     Ingredients{" "}
-                    <span className="normal-case tracking-normal font-normal opacity-70">
-                      (comma separated)
+                    <span className="normal-case opacity-70 tracking-normal">
+                      (csv)
                     </span>
                   </label>
                   <textarea
                     rows={2}
-                    className="w-full bg-slate-950/50 p-2.5 sm:p-3 text-xs sm:text-sm rounded-lg border border-slate-700 focus:border-indigo-500 outline-none transition-colors text-white resize-none"
+                    className={`w-full p-4 text-sm font-medium rounded-2xl border outline-none transition-all focus:ring-2 focus:ring-indigo-500/50 resize-none ${theme.inputBg}`}
                     value={editingDish.ingredients}
                     onChange={(e) =>
                       setEditingDish({
@@ -295,11 +375,13 @@ const ManageDishes = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                    <label
+                      className={`block text-[10px] font-bold uppercase tracking-widest ${theme.textSub} mb-1.5`}
+                    >
                       Allergies
                     </label>
                     <input
-                      className="w-full bg-slate-950/50 p-2.5 sm:p-3 text-xs sm:text-sm rounded-lg border border-slate-700 focus:border-red-500/50 outline-none transition-colors text-red-300"
+                      className={`w-full p-4 text-sm font-medium rounded-2xl border outline-none transition-all focus:ring-2 focus:ring-red-500/50 text-red-500 ${theme.inputBg}`}
                       value={editingDish.containsAllergies}
                       onChange={(e) =>
                         setEditingDish({
@@ -311,11 +393,13 @@ const ManageDishes = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                    <label
+                      className={`block text-[10px] font-bold uppercase tracking-widest ${theme.textSub} mb-1.5`}
+                    >
                       Illness Conflicts
                     </label>
                     <input
-                      className="w-full bg-slate-950/50 p-2.5 sm:p-3 text-xs sm:text-sm rounded-lg border border-slate-700 focus:border-yellow-500/50 outline-none transition-colors text-yellow-300"
+                      className={`w-full p-4 text-sm font-medium rounded-2xl border outline-none transition-all focus:ring-2 focus:ring-yellow-500/50 text-yellow-500 ${theme.inputBg}`}
                       value={editingDish.unsuitableForIllnesses}
                       onChange={(e) =>
                         setEditingDish({
@@ -327,16 +411,14 @@ const ManageDishes = () => {
                   </div>
                 </div>
 
-                {/* Dietary Flags Input */}
-                <div className="col-span-1 sm:col-span-2">
-                  <label className="block text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5 mt-2">
+                <div>
+                  <label
+                    className={`block text-[10px] font-bold uppercase tracking-widest ${theme.textSub} mb-1.5 mt-2`}
+                  >
                     Dietary Flags (Abstract Profile)
-                    <span className="normal-case tracking-normal font-normal opacity-70 ml-1">
-                      (comma separated)
-                    </span>
                   </label>
                   <input
-                    className="w-full bg-slate-950/50 p-2.5 sm:p-3 text-xs sm:text-sm rounded-lg border border-slate-700 focus:border-blue-500/50 outline-none transition-colors text-blue-300"
+                    className={`w-full p-4 text-sm font-medium rounded-2xl border outline-none transition-all focus:ring-2 focus:ring-indigo-500/50 text-indigo-500 ${theme.inputBg}`}
                     value={editingDish.dietaryFlags}
                     placeholder="e.g. oily, high-sugar, spicy, deep-fried"
                     onChange={(e) =>
@@ -348,17 +430,19 @@ const ManageDishes = () => {
                   />
                 </div>
 
-                <div className="flex gap-3 pt-4 border-t border-slate-800/50 mt-2">
+                <div
+                  className={`flex gap-3 pt-6 border-t ${theme.divider} mt-4`}
+                >
                   <button
                     type="button"
                     onClick={() => setEditingDish(null)}
-                    className="flex-1 py-2.5 sm:py-3 bg-slate-800 text-xs sm:text-sm text-slate-300 rounded-lg hover:bg-slate-700 font-semibold transition-colors"
+                    className={`flex-1 py-4 text-sm rounded-2xl font-bold transition-colors ${theme.btnBack}`}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2.5 sm:py-3 bg-indigo-600 text-xs sm:text-sm text-white rounded-lg hover:bg-indigo-500 font-bold transition-colors shadow-lg shadow-indigo-900/20"
+                    className="flex-1 py-4 bg-indigo-500 text-sm text-white rounded-2xl hover:bg-indigo-600 font-extrabold transition-all active:scale-95 shadow-lg shadow-indigo-500/30"
                   >
                     Save Changes
                   </button>
