@@ -3,7 +3,7 @@ import axios from "axios";
 // Create a reusable Axios instance pointing to your Node.js backend
 const API = axios.create({
   //baseURL: "https://bitecheck-api.loca.lt/api", // Make sure this is your current backend URL
-  baseURL: "https://bytecheck-tau.vercel.app",
+  baseURL: "https://bytecheck-tau.vercel.app/api",
 });
 
 // Automatically inject your JWT "digital ID card" token into headers if it exists
