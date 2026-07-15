@@ -152,3 +152,8 @@ Contributions, issues, and feature requests are welcome. Feel free to open a pul
 ## 📄 License
 
 ISC
+
+⭐ Support
+If you find this project useful or interesting, consider giving it a ⭐ on GitHub.
+
+Your feedback and suggestions are highly appreciated.
